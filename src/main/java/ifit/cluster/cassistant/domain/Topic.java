@@ -1,8 +1,12 @@
 package ifit.cluster.cassistant.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
@@ -16,6 +20,8 @@ public class Topic {
     private String summary;
     private String speaker;
     private Date dateTime;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Conference conference;
 //    private List<Question> questions;
     private Integer rate;
