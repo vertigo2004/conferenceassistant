@@ -1,4 +1,4 @@
-package domain;
+package ifit.cluster.cassistant.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
