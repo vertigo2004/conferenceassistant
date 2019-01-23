@@ -30,10 +30,10 @@ public class CassistantApplication {
         return args -> {
 
             Conference c = new Conference("Conf 1", "Conf 1 Info Info Info", null);
-            Topic t1 = new Topic("Topic #1", "Summary 1 Summary 1 Summary 1 ", "Speaker 1", Calendar.getInstance().getTime(), c, 1);
-            Topic t2 = new Topic("Topic #2", "Summary 2 Summary 2 Summary 2 ", "Speaker 2", Calendar.getInstance().getTime(), c, 2);
-            Topic t3 = new Topic("Topic #3", "Summary 3 Summary 3 Summary 3 ", "Speaker 3", Calendar.getInstance().getTime(), c, 3);
-            Topic t4 = new Topic("Topic #4", "Summary 4 Summary 4 Summary 4 ", "Speaker 4", Calendar.getInstance().getTime(), c, 4);
+            Topic t1 = new Topic("Topic #1", "Summary 1 Summary 1 Summary 1 ", "Speaker 1", Calendar.getInstance().getTime(), c);
+            Topic t2 = new Topic("Topic #2", "Summary 2 Summary 2 Summary 2 ", "Speaker 2", Calendar.getInstance().getTime(), c);
+            Topic t3 = new Topic("Topic #3", "Summary 3 Summary 3 Summary 3 ", "Speaker 3", Calendar.getInstance().getTime(), c);
+            Topic t4 = new Topic("Topic #4", "Summary 4 Summary 4 Summary 4 ", "Speaker 4", Calendar.getInstance().getTime(), c);
 
             c.setTopics(Arrays.asList(t1, t2, t3, t4));
             c = conferenceRepository.save(c);

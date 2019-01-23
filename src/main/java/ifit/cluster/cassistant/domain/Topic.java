@@ -2,12 +2,16 @@ package ifit.cluster.cassistant.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Topic {
@@ -24,20 +28,20 @@ public class Topic {
     @JsonIgnore
     private Conference conference;
 
-    //    private List<Question> questions;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<User> likes;
 
-    private Integer rate;
+    //    private List<Question> questions;
 
     public Topic() {
     }
 
-    public Topic(String name, String summary, String speaker, Date dateTime, Conference conference, Integer rate) {
+    public Topic(String name, String summary, String speaker, Date dateTime, Conference conference) {
         this.name = name;
         this.summary = summary;
         this.speaker = speaker;
         this.dateTime = dateTime;
         this.conference = conference;
-        this.rate = rate;
     }
 
     public Long getId() {
@@ -87,7 +91,16 @@ public class Topic {
     public void setConference(Conference conference) {
         this.conference = conference;
     }
-//
+
+    public Set<User> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Set<User> likes) {
+        this.likes = likes;
+    }
+
+    //
 //    public List<Question> getQuestions() {
 //        return questions;
 //    }
@@ -96,11 +109,8 @@ public class Topic {
 //        this.questions = questions;
 //    }
 
-    public Integer getRate() {
-        return rate;
-    }
-
-    public void setRate(Integer rate) {
-        this.rate = rate;
+    @Transient
+    public int getRate() {
+        return likes == null ? 0 : likes.size();
     }
 }

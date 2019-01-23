@@ -9,6 +9,9 @@
 <h2>Info</h2>
 <p th:text="#{conference.info}">Info</p>
 
+<form method="post" action="/topic/like">
+    <input type="text" name="email" th:value="${user}">
+    <input type="text" name="nickname" th:value="${user}">
 <table>
     <thead>
     <tr>
@@ -16,8 +19,8 @@
         <th th:text="#{topic.name}">Topic Name</th>
         <th th:text="#{topic.summary}">Summary</th>
         <th th:text="#{topic.speaker}">About Speaker</th>
-
         <th th:text="#{topic.rate}">Rate</th>
+        <th th:text="#{topic.like}">Like Me</th>
     </tr>
     </thead>
     <tbody>
@@ -26,10 +29,12 @@
         <td th:text="${t.name}">name</td>
         <td th:text="${t.summary}">Shot overview</td>
         <td th:text="${t.speaker}">Speaker is greate</td>
-        <td th:text="${t.rate}">10</td>
+        <td th:text="${t.getRate()}">10</td>
+        <td><button type="submit" name="id" th:value="${t.id}">+1</button></td>
     </tr>
     </tbody>
 </table>
+</form>
 
 </body>
 </html>
