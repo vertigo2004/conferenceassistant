@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Conference</title>
+</head>
+<body>
+<h1 th:text="#{conference.name}">Conference name</h1>
+<h2>Info</h2>
+<p th:text="#{conference.info}">Info</p>
+
+<table>
+    <thead>
+    <tr>
+        <!--<th th:text="#{topic.date}">Date performed</th>-->
+        <th th:text="#{topic.name}">Topic Name</th>
+        <th th:text="#{topic.summary}">Summary</th>
+        <th th:text="#{topic.speaker}">About Speaker</th>
+
+        <th th:text="#{topic.rate}">Rate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="t : ${conference.topics}">
+        <!--<td th:text="${t.dateTime}">13/01/2011</td>-->
+        <td th:text="${t.name}">name</td>
+        <td th:text="${t.summary}">Shot overview</td>
+        <td th:text="${t.speaker}">Speaker is greate</td>
+        <td th:text="${t.rate}">10</td>
+
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

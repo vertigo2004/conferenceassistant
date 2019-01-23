@@ -19,11 +19,13 @@ public class Topic {
     private String name;
     private String summary;
     private String speaker;
-    private Date dateTime;
+//    private Date dateTime;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Conference conference;
-//    private List<Question> questions;
+
+    //    private List<Question> questions;
+
     private Integer rate;
 
     public Topic() {
@@ -33,7 +35,7 @@ public class Topic {
         this.name = name;
         this.summary = summary;
         this.speaker = speaker;
-        this.dateTime = dateTime;
+//        this.dateTime = dateTime;
         this.conference = conference;
         this.rate = rate;
     }
@@ -70,13 +72,13 @@ public class Topic {
         this.speaker = speaker;
     }
 
-    public Date getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
-    }
+//    public Date getDateTime() {
+//        return dateTime;
+//    }
+//
+//    public void setDateTime(Date dateTime) {
+//        this.dateTime = dateTime;
+//    }
 
     public Conference getConference() {
         return conference;
