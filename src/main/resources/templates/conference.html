@@ -12,7 +12,7 @@
 <table>
     <thead>
     <tr>
-        <!--<th th:text="#{topic.date}">Date performed</th>-->
+        <th th:text="#{topic.date}">Date performed</th>
         <th th:text="#{topic.name}">Topic Name</th>
         <th th:text="#{topic.summary}">Summary</th>
         <th th:text="#{topic.speaker}">About Speaker</th>
@@ -22,12 +22,11 @@
     </thead>
     <tbody>
     <tr th:each="t : ${conference.topics}">
-        <!--<td th:text="${t.dateTime}">13/01/2011</td>-->
+        <td th:text="${t.dateTime}">13/01/2011</td>
         <td th:text="${t.name}">name</td>
         <td th:text="${t.summary}">Shot overview</td>
         <td th:text="${t.speaker}">Speaker is greate</td>
         <td th:text="${t.rate}">10</td>
-
     </tr>
     </tbody>
 </table>
