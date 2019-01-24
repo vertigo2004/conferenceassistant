@@ -22,7 +22,7 @@
         <div class="h3 text-center pt-3">List of active Topics</div>
         <div class="text-center" th:each="topic : ${topics}">
         <a class="btn btn-lg btn-primary m-2"
-           href="/topic/id" role="button"
+           th:href="@{'/topic/'+${topic.id}}" role="button"
            th:text="|''${topic.name}'' presenting by ${topic.speaker} (rate ${topic.rate})|"></a>
         </div>
     </div>
