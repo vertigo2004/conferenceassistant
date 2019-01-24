@@ -23,11 +23,11 @@ public class Conference {
     }
     public Conference(String name,
                       String info
-                      ,List<Topic> topics
+                      //,List<Topic> topics
     ) {
         this.name = name;
         this.info = info;
-        this.topics = topics;
+       // this.topics = topics;
     }
 
     public Long getId() {
