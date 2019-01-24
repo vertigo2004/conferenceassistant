@@ -1,6 +1,7 @@
 package ifit.cluster.cassistant.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -24,13 +25,13 @@ public class Question {
     private String text;
     private int rate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Topic topic;
 
     @ElementCollection(targetClass = State.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "question_state", joinColumns = @JoinColumn(name = "question_id"))
     @Enumerated(EnumType.STRING)
     private Set<State> state;
-
 
 }

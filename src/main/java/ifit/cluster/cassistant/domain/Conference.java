@@ -11,11 +11,13 @@ import java.util.List;
 
 @Entity
 public class Conference {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String name;
     private String info;
+
     @OneToMany(mappedBy = "conference", fetch = FetchType.LAZY)
     private List<Topic> topics;
 
