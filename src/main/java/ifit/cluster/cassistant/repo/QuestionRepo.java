@@ -1,10 +1,10 @@
 package ifit.cluster.cassistant.repo;
 
-import ifit.cluster.cassistant.domain.Conference;
+import ifit.cluster.cassistant.domain.Question;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ConferenceRepo extends CrudRepository<Conference, Long> {
-    Conference getById(Long id);
+public interface QuestionRepo extends CrudRepository<Question, Long> {
+
 }

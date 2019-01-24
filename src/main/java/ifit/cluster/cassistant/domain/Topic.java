@@ -7,7 +7,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Topic {
@@ -20,10 +22,13 @@ public class Topic {
     private String summary;
     private String speaker;
     private Date dateTime;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Conference conference;
-//    private List<Question> questions;
+
+    @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY)
+    private List<Question> questions;
     private Integer rate;
 
     public Topic() {
@@ -85,14 +90,14 @@ public class Topic {
     public void setConference(Conference conference) {
         this.conference = conference;
     }
-//
-//    public List<Question> getQuestions() {
-//        return questions;
-//    }
-//
-//    public void setQuestions(List<Question> questions) {
-//        this.questions = questions;
-//    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
 
     public Integer getRate() {
         return rate;
