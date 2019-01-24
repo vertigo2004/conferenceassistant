@@ -1,6 +1,5 @@
 package ifit.cluster.cassistant.domain;
 
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,7 @@ import java.util.List;
 @Entity
 public class Conference {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.TABLE)
     private Long id;
     private String name;
     private String info;
@@ -23,11 +22,11 @@ public class Conference {
     }
     public Conference(String name,
                       String info
-                      ,List<Topic> topics
+                      //     ,List<Topic> topics
     ) {
         this.name = name;
         this.info = info;
-        this.topics = topics;
+        //this.topics = topics;
     }
 
     public Long getId() {
@@ -48,10 +47,10 @@ public class Conference {
     public void setInfo(String info) {
         this.info = info;
     }
-    public List<Topic> getTopics() {
+   /* public List<Topic> getTopics() {
         return topics;
     }
     public void setTopics(List<Topic> topics) {
         this.topics = topics;
-    }
+    }*/
 }
