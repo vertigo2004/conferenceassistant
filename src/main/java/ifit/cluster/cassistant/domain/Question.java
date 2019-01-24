@@ -28,7 +28,7 @@ public class Question {
     private Topic topic;
 
     @ElementCollection(targetClass = State.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "question_state", joinColumns = @JoinColumn(name = "question_id"))
     @Enumerated(EnumType.STRING)
     private Set<State> state;
 
