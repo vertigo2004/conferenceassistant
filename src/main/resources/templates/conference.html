@@ -29,13 +29,15 @@
 <p th:text="${lang}">Lang</p>
 
 <h1 th:text="#{conference.name}">Conference name</h1>
-<h2>Info</h2>
-<p th:text="#{conference.info}">Info</p>
+<p th:text="${conference.name}">
+
+<h2 th:text="#{conference.info}">Info</h2>
+<p th:text="${conference.info}">
 
 <form method="post" action="/topic/like">
     <input type="text" name="email" th:value="${user}">
     <input type="text" name="nickname" th:value="${user}">
-<table>
+<table border="1">
     <thead>
     <tr>
         <th th:text="#{topic.date}">Date performed</th>
