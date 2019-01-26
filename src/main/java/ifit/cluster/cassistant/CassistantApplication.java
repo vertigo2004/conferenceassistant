@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.*;
 
+
 @SpringBootApplication
 public class CassistantApplication {
     @Autowired
@@ -68,12 +69,12 @@ public class CassistantApplication {
                     , "How long time person has to quite smoking, instantly or for a while time ?"
                     , 5
                     , topic2
-                    , Collections.singleton(State.NEW));
+                    , Collections.singleton(State.ANSWERED));
             Question question4 = new Question("mailexample@gmail.com"
                     , "What is the best practice for quite smoking without downsides?"
                     , 3
                     , topic2
-                    , Collections.singleton(State.NEW));
+                    , Collections.singleton(State.REMOVED));
             conferenceRepo.save(conf1);
             topicRepo.save(topic1);
             topicRepo.save(topic2);

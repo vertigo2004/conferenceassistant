@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Topic {
@@ -24,6 +25,9 @@ public class Topic {
     private List<Question> questions;
     private Integer rate;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<User> likes;
+
     public Topic() {
     }
 
@@ -40,64 +44,55 @@ public class Topic {
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public String getSummary() {
         return summary;
     }
-
     public void setSummary(String summary) {
         this.summary = summary;
     }
-
     public String getSpeaker() {
         return speaker;
     }
-
     public void setSpeaker(String speaker) {
         this.speaker = speaker;
     }
-
     public Date getDateTime() {
         return dateTime;
     }
-
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
-
     public Conference getConference() {
         return conference;
     }
-
     public void setConference(Conference conference) {
         this.conference = conference;
     }
-
     public List<Question> getQuestions() {
         return questions;
     }
-
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
-
     public Integer getRate() {
         return rate;
     }
-
     public void setRate(Integer rate) {
         this.rate = rate;
+    }
+    public Set<User> getLikes() {
+        return likes;
+    }
+    public void setLikes(Set<User> likes) {
+        this.likes = likes;
     }
 }

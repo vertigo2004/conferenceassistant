@@ -36,11 +36,26 @@
         <p class="lead" th:text="${topic.summary}"></p>
         <p class="lead" th:text="|This conference will held on ${topic.dateTime}|"></p>
         <div class="h3">List of Questions</div>
-        <div class="text-center" th:each="question : ${questions}">
-            <div class="card my-3">
+        <div class="" th:each="question : ${questions}">
+            <div class="card my-3 rounded"th:classappend="${#strings.toString(question.state) == '[IN_PROGRESS]'}? ' border border-primary'">
                 <div class="m-2" th:text="${question.text}">Question</div>
-                <div class="card-footer text-muted"
-                     th:text="|Asked by ${question.email}|">
+                <div class="card-footer text-muted row justify-content-between m-0">
+                    <span  th:text="|Asked by ${question.email}|"></span>
+
+                    <span th:if="${#strings.toString(question.state) == '[NEW]'}"
+                          th:text="|State:${question.state}|"
+                          class="p-1 mr-5 bg-success text-white"></span>
+                    <span th:if="${#strings.toString(question.state) == '[IN_PROGRESS]'}"
+                          th:text="|State:${question.state}|"
+                          class="p-1 mr-5 bg-primary text-white"></span>
+                    <span th:if="${#strings.toString(question.state) == '[ANSWERED]'}"
+                          th:text="|State:${question.state}|"
+                          class="p-1 mr-5 bg-secondary text-white"></span>
+                    <span th:if="${#strings.toString(question.state) == '[REMOVED]'}"
+                          th:text="|State:${question.state}|"
+                          class="p-1 mr-5 bg-danger text-white"></span>
+
+                    <span  th:text="|Rate:${question.rate}|"></span>
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@ public class Question {
     private Long id;
     private String email;
     private String text;
-    private int rate;
+    private Integer rate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
@@ -25,7 +25,7 @@ public class Question {
     public Question() {
     }
 
-    public Question(String email, String text, int rate, Topic topic, Set<State> state) {
+    public Question(String email, String text, Integer rate, Topic topic, Set<State> state) {
         this.email = email;
         this.text = text;
         this.rate = rate;
@@ -57,7 +57,7 @@ public class Question {
         this.text = text;
     }
 
-    public int getRate() {
+    public Integer getRate() {
         return rate;
     }
 
