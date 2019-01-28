@@ -22,6 +22,9 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private Set<State> state;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<User> likes;
+
     public Question() {
     }
 
@@ -36,48 +39,43 @@ public class Question {
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
     public String getText() {
         return text;
     }
-
     public void setText(String text) {
         this.text = text;
     }
-
     public Integer getRate() {
         return rate;
     }
-
-    public void setRate(int rate) {
+    public void setRate(Integer rate) {
         this.rate = rate;
     }
-
     public Topic getTopic() {
         return topic;
     }
-
     public void setTopic(Topic topic) {
         this.topic = topic;
     }
-
     public Set<State> getState() {
         return state;
     }
-
     public void setState(Set<State> state) {
         this.state = state;
+    }
+    public Set<User> getLikes() {
+        return likes;
+    }
+    public void setLikes(Set<User> likes) {
+        this.likes = likes;
     }
 }

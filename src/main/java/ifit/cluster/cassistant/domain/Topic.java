@@ -2,6 +2,7 @@ package ifit.cluster.cassistant.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -16,7 +17,7 @@ public class Topic {
     private String name;
     private String summary;
     private String speaker;
-    private Date dateTime;
+    private Calendar dateTime;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Conference conference;
@@ -31,7 +32,7 @@ public class Topic {
     public Topic() {
     }
 
-    public Topic(String name, String summary, String speaker, Date dateTime, Conference conference, List<Question> questions, Integer rate) {
+    public Topic(String name, String summary, String speaker, Calendar dateTime, Conference conference, List<Question> questions, Integer rate) {
         this.name = name;
         this.summary = summary;
         this.speaker = speaker;
@@ -65,10 +66,10 @@ public class Topic {
     public void setSpeaker(String speaker) {
         this.speaker = speaker;
     }
-    public Date getDateTime() {
+    public Calendar getDateTime() {
         return dateTime;
     }
-    public void setDateTime(Date dateTime) {
+    public void setDateTime(Calendar dateTime) {
         this.dateTime = dateTime;
     }
     public Conference getConference() {

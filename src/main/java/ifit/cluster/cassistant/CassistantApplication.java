@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -39,17 +40,20 @@ public class CassistantApplication {
                     , "This conference will held on 4th of July from 10 AM to 1PM, and a lot more text must be here... Just a testing text"
             );
 
+            Calendar calendar1 = new GregorianCalendar(2019,2,30,16,30,0);
             Topic topic1 = new Topic("Environment Protection"
                     , "Summary about this topic, actually idk what must be here"
                     , "Opra"
-                    , new java.util.Date()
+                    , calendar1
                     , conf1
                     , Arrays.asList()
                     , 9);
+            Calendar calendar2 = new GregorianCalendar(2019,1,21,18,0,0);
+            calendar1.set(2019,1,30,13,30);
             Topic topic2 = new Topic("How to quite smoking"
                     , "Summary about this topic, actually idk what must be here"
                     , "Jonny Ive"
-                    , new java.util.Date()
+                    , calendar2
                     , conf1
                     , Arrays.asList()
                     , 12);

@@ -25,6 +25,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/moderator">Moderator</a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -32,40 +35,74 @@
     <h5 class="text-center mt-3">Topic Page</h5>
     <div class="jumbotron mt-2 text-center">
         <h1 th:text="|''${topic.name}''|"></h1>
-        <h3 th:text="|presenting by ${topic.speaker}|"></h3>
+        <h3 th:text="|presenting by ${topic.speaker}| + ' . . . . . Rate:' + ${topic.rate}"></h3>
         <p class="lead" th:text="${topic.summary}"></p>
-        <p class="lead" th:text="|This conference will held on ${topic.dateTime}|"></p>
+        <p class="lead" th:text="|This conference starts at ${sdf.format(topic.dateTime.getTime())}|"></p>
         <div class="h3">List of Questions</div>
         <div class="" th:each="question : ${questions}">
-            <div class="card my-3 rounded"th:classappend="${#strings.toString(question.state) == '[IN_PROGRESS]'}? ' border border-primary'">
-                <div class="m-2" th:text="${question.text}">Question</div>
-                <div class="card-footer text-muted row justify-content-between m-0">
-                    <span  th:text="|Asked by ${question.email}|"></span>
-
-                    <span th:if="${#strings.toString(question.state) == '[NEW]'}"
-                          th:text="|State:${question.state}|"
-                          class="p-1 mr-5 bg-success text-white"></span>
-                    <span th:if="${#strings.toString(question.state) == '[IN_PROGRESS]'}"
-                          th:text="|State:${question.state}|"
-                          class="p-1 mr-5 bg-primary text-white"></span>
-                    <span th:if="${#strings.toString(question.state) == '[ANSWERED]'}"
-                          th:text="|State:${question.state}|"
-                          class="p-1 mr-5 bg-secondary text-white"></span>
-                    <span th:if="${#strings.toString(question.state) == '[REMOVED]'}"
-                          th:text="|State:${question.state}|"
-                          class="p-1 mr-5 bg-danger text-white"></span>
-
-                    <span  th:text="|Rate:${question.rate}|"></span>
+            <div class="card my-3 rounded"
+                 th:classappend="${#strings.toString(question.state) == '[IN_PROGRESS]'}? ' border border-primary'">
+                <div class="m-2" th:text="${question.text}">
+                    Question
                 </div>
+                <form method="post" th:action="'/question/like/'+ ${topic.id}">
+                    <div class="card-footer text-muted row justify-content-between m-0 p-3">
+                        <span th:text="|Asked by ${question.email}|"></span>
+
+                        <span th:if="${#strings.toString(question.state) == '[NEW]'}"
+                              th:text="|State:${question.state}|"
+                              class="pt-1 px-2 mr-5 bg-success text-white"></span>
+                        <span th:if="${#strings.toString(question.state) == '[IN_PROGRESS]'}"
+                              th:text="|State:${question.state}|"
+                              class="pt-1 px-2 mr-5 bg-primary text-white"></span>
+                        <span th:if="${#strings.toString(question.state) == '[ANSWERED]'}"
+                              th:text="|State:${question.state}|"
+                              class="pt-1 px-2 mr-5 bg-secondary text-white"></span>
+                        <span th:if="${#strings.toString(question.state) == '[REMOVED]'}"
+                              th:text="|State:${question.state}|"
+                              class="pt-1 px-2 mr-5 bg-danger text-white"></span>
+
+                        <span th:text="|Rate:${question.rate}|"></span>
+                        <a class="btn btn-primary px-2 m-0" data-toggle="collapse"
+                           th:href="@{'#collapse' + ${question.id}}"
+                           role="button"
+                           aria-expanded="false" aria-controls="collapseLike">
+                            Like
+                        </a>
+                        <div class="collapse" th:id="'collapse' + ${question.id}">
+                            <div class="container mt-3">
+                                <div class="row text-left">
+                                    <div class="col col-lg-4">
+                                        <input class="form-control" type="text" name="email" placeholder="Enter email">
+                                    </div>
+                                    <div class="col col-lg-5">
+                                        <input class="form-control" type="text" name="nickname"
+                                               placeholder="Enter nickname (optional)">
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-primary mr-5" type="submit" name="id"
+                                                th:value="${question.id}">
+                                            Like
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+
+        <a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseExample" role="button"
+           aria-expanded="false" aria-controls="collapseExample">
             Add New Question
         </a>
-        <div class="collapse"  id="collapseExample">
+        <div class="collapse" id="collapseExample">
             <div class="form-group">
-                <form method="post" enctype="multipart/form-data">
-                    <input type="text" name="text" class="form-control" placeholder="Enter Question" >
+                <form method="post" action="/topic/question">
+                    <input type="text" name="text" class="form-control my-1" placeholder="Enter Question"/>
+                    <input type="text" name="email" class="form-control my-1" placeholder="Enter Email"/>
+                    <button class="btn btn-primary" type="submit" name="id" th:value="${topic.id}">Add Question</button>
                 </form>
             </div>
         </div>

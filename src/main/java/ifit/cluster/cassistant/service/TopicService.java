@@ -1,11 +1,13 @@
 package ifit.cluster.cassistant.service;
 
+import ifit.cluster.cassistant.domain.Question;
 import ifit.cluster.cassistant.domain.Topic;
 import ifit.cluster.cassistant.domain.User;
 import ifit.cluster.cassistant.repo.TopicRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -37,7 +39,21 @@ public class TopicService {
     public Topic likeTopic(Long id, User user) {
         Topic t = topicRepo.findById(id).get();
 
-        t.getLikes().add(user);
+        if(!t.getLikes().contains(user)) {
+            t.getLikes().add(user);
+            t.setRate(t.getRate() + 1);
+        }else {
+            t.setRate(t.getRate() - 1);
+            t.getLikes().remove(user);
+        }
         return topicRepo.save(t);
+    }
+
+    public Topic addQuestionToTopic(Long id, Question question){
+        Topic t = getTopic(id);
+        List<Question> questions = t.getQuestions();
+        questions.add(question);
+        topicRepo.save(t);
+        return t;
     }
 }
