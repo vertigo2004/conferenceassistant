@@ -50,7 +50,6 @@ public class QuestionService {
 
     public Question likeQuestion(Long id, User user) {
         Question q = questionRepo.findById(id).get();
-
         if (!q.getLikes().contains(user)) {
             q.getLikes().add(user);
             q.setRate(q.getRate() + 1);

@@ -27,11 +27,86 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/moderator">Moderator</a>
+                <a class="nav-link" th:href="@{'/topic/' + ${topic.id}}">Questions</a>
             </li>
         </ul>
     </div>
 </nav>
+<div class="container">
+    <h5 class="text-center mt-3">Moderator Page</h5>
+    <div class="jumbotron mt-2 text-center">
+        <div class="h3">List of Questions</div>
+        <div class="" th:each="question : ${questions}">
+            <div class="card my-3 rounded"
+                 th:classappend="${#strings.toString(question.state) == '[IN_PROGRESS]'}? ' border border-primary'">
+                <div class="m-2" th:text="${question.text}">
+                    Question
+                </div>
+                    <div class="card-footer text-muted row justify-content-between m-0 p-3">
+                        <div class="text-left" th:text="|Asked by ${question.email}|" style="width: 30%"></div>
 
+                        <div th:if="${#strings.toString(question.state) == '[NEW]'}"
+                             th:text="|State:${question.state}|"
+                             class="px-2 py-1 bg-success text-white" style="width: 25%; margin-right: 100px;"></div>
+                        <div th:if="${#strings.toString(question.state) == '[IN_PROGRESS]'}"
+                             th:text="|State:${question.state}|"
+                             class="px-2 py-1 bg-primary text-white" style="width: 25%; margin-right: 100px;"></div>
+                        <div th:if="${#strings.toString(question.state) == '[ANSWERED]'}"
+                             th:text="|State:${question.state}|"
+                             class="px-2 py-1 bg-secondary text-white" style="width: 25%; margin-right: 100px;"></div>
+                        <div th:if="${#strings.toString(question.state) == '[REMOVED]'}"
+                             th:text="|State:${question.state}|"
+                             class="px-2 py-1 bg-danger text-white" style="width: 25%; margin-right: 100px;"></div>
+
+                        <span th:text="|Rate:${question.rate}|"></span>
+                        <a class="btn btn-primary px-2 m-0" data-toggle="collapse"
+                           th:href="@{'#collapse' + ${question.id}}"
+                           role="button"
+                           aria-expanded="true" aria-controls="collapse">
+                            Change State
+                        </a>
+                        <div class="row justify-content-md-center collapse" th:id="'collapse' + ${question.id}">
+                            <div class="container mt-3">
+                                <form method="post" th:action="'/moderator/'+${topic.id}+'/'+${question.id}">
+                                    <div class="row text-center">
+                                        <div class="col col-lg-2">
+                                            <button class="btn btn-success mr-5 px-5" type="submit" name="state"
+                                                    th:value="${states.get(0)}">New
+                                            </button>
+                                        </div>
+                                        <div class="col col-lg-4">
+                                            <button class="btn btn-primary px-5" type="submit" name="state"
+                                                    th:value="${states.get(1)}">In Progress
+                                            </button>
+                                        </div>
+                                        <div class="col col-lg-3">
+                                            <button class="btn btn-secondary mr-5 px-5" type="submit" name="state"
+                                                    th:value="${states.get(2)}">Answered
+                                            </button>
+                                        </div>
+                                        <div class="col col-lg-3">
+                                            <button class="btn btn-danger mr-5 px-5" type="submit" name="state"
+                                                    th:value="${states.get(3)}">Removed
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
 </body>
 </html>
