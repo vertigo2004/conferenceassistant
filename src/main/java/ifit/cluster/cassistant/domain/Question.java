@@ -1,10 +1,10 @@
 package ifit.cluster.cassistant.domain;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -12,13 +12,13 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Question extends BaseEntity {
 
     private String email;
     private String text;
-    private int rate;
+    private Integer rate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Topic topic;
