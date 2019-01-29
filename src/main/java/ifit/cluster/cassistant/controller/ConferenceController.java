@@ -17,8 +17,7 @@ public class ConferenceController {
 
     @GetMapping("{id}")
     public String conference(@PathVariable Long id, Model model){
-        Conference conference = conferenceService.getById(id);
-        model.addAttribute("conference", conference);
+        model.addAttribute("conference", conferenceService.getById(id));
 
         return "conference";
     }
