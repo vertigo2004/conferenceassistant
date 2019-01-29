@@ -22,10 +22,12 @@ public class Topic extends BaseEntity{
     private String summary;
     private String speaker;
     private Date dateTime;
+    private Integer rate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Conference conference;
-    private Integer rate;
+
 
 
 

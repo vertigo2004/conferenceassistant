@@ -20,6 +20,7 @@ public class Conference  extends BaseEntity{
 
     private String name;
     private String info;
+
     @OneToMany(mappedBy = "conference", fetch = FetchType.LAZY)
     private List<Topic> topics;
 

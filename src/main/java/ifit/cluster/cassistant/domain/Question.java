@@ -14,11 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Question {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+public class Question extends BaseEntity {
 
     private String email;
     private String text;
