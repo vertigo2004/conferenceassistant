@@ -28,7 +28,4 @@ public class Topic extends BaseEntity{
     @JsonIgnore
     private Conference conference;
 
-
-
-
 }

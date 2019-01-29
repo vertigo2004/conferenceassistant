@@ -16,7 +16,7 @@ public class ConferenceService{
     }
 
     public Iterable<Conference> finadALl() {
-        Iterable<Conference> conferences = conferenceRepo.findAll();
-        return conferences;
+        return conferenceRepo.findAll();
     }
+
 }
