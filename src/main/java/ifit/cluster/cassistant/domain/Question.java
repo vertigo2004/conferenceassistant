@@ -26,7 +26,6 @@ public class Question extends BaseEntity {
     @ElementCollection(targetClass = State.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "question_state", joinColumns = @JoinColumn(name = "question_id"))
     @Enumerated(EnumType.STRING)
-    private Set<State> state;
-
+    private State state;
 
 }

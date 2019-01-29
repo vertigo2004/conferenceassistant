@@ -15,7 +15,6 @@ public class TopicService {
         topic.setRate(topic.getRate() + 1);
     }
 
-    //нахіба нам цей метод, не пам'ятаю поки що. Skipped.
     private boolean checkEmail(String email) {
         return false;
     }

@@ -1,7 +1,6 @@
 package ifit.cluster.cassistant.repo;
 
 import ifit.cluster.cassistant.domain.Question;
-import ifit.cluster.cassistant.domain.State;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +11,6 @@ public interface QuestionRepo extends CrudRepository<QuestionRepo, Long> {
 
     boolean checkEmail(String email);
 
-    Question updateState(Question question);
+    void updateState(Question question);
 
 }

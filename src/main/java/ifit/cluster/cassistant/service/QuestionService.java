@@ -21,7 +21,7 @@ public class QuestionService {
         return questionRepo.checkEmail(email);
     };
 
-    State updateState(QuestionRepo question, State state) {
-        return State.NEW; //заглушка
+    void updateState(Question question, State state) {
+        question.setState(state);
     };
 }
