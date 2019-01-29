@@ -20,7 +20,7 @@ public class QuestionController {
                               @RequestParam String text,
                               @RequestParam Long id)
     {
-       Question question = questionService.newQuestion(id,text,email);
+       questionService.newQuestion(id,text,email);
         return "redirect:/topic/" + id;
     }
 

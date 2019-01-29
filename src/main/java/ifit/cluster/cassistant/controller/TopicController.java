@@ -3,7 +3,6 @@ package ifit.cluster.cassistant.controller;
 import ifit.cluster.cassistant.domain.Question;
 import ifit.cluster.cassistant.domain.Topic;
 import ifit.cluster.cassistant.domain.User;
-import ifit.cluster.cassistant.repo.TopicRepo;
 import ifit.cluster.cassistant.service.QuestionService;
 import ifit.cluster.cassistant.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,26 +18,26 @@ import java.text.SimpleDateFormat;
 @Controller
 public class TopicController {
     @Autowired
-    private TopicRepo topicRepo;
-    @Autowired
     private QuestionService questionService;
     @Autowired
     private TopicService topicService;
 
     @GetMapping("/topic/{id}")
     public String loadTopics(@PathVariable Long id, Model model){
-        Topic topic = topicRepo.getById(id);
+        Topic topic = topicService.getTopic(id);
         model.addAttribute("topic", topic);
         Iterable<Question> questions = questionService.sortQuestion(topic.getQuestions());
         model.addAttribute("questions", questions);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
         model.addAttribute("sdf", sdf);
-        return "Topic";
+        return "topic";
     }
 
 
     @PostMapping("/topic/like")
-    public String likeTopic(@RequestParam Long id, @RequestParam String email, @RequestParam(required = false) String nickname) {
+    public String likeTopic(@RequestParam Long id,
+                            @RequestParam String email,
+                            @RequestParam(required = false) String nickname) {
         Topic t;
         if (email == null || email.isEmpty()) {
             t = topicService.getTopic(id);
@@ -49,6 +48,6 @@ public class TopicController {
             t = topicService.likeTopic(id, new User(email, nickname));
 
         }
-        return "redirect:/";
+        return "redirect:/conf/1";
     }
 }

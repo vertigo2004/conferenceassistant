@@ -9,9 +9,7 @@ import ifit.cluster.cassistant.repo.TopicRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -20,9 +18,9 @@ public class QuestionService {
     @Autowired
     private QuestionRepo questionRepo;
     @Autowired
-    private TopicService topicService;
-    @Autowired
     private TopicRepo topicRepo;
+    @Autowired
+    private TopicService topicService;
 
     public List<Question> sortQuestion(Iterable<Question> questions) {
         List<Question> questionList = StreamSupport
@@ -50,13 +48,24 @@ public class QuestionService {
 
     public Question likeQuestion(Long id, User user) {
         Question q = questionRepo.findById(id).get();
-        if (!q.getLikes().contains(user)) {
-            q.getLikes().add(user);
-            q.setRate(q.getRate() + 1);
-        } else {
-            q.setRate(q.getRate() - 1);
-            q.getLikes().remove(user);
-        }
+        q = (Question)topicService.likeOrDisLike(user, q);
         return questionRepo.save(q);
+    }
+
+    public void changeState(Long questionId, String state){
+        Question q = getQuestion(questionId);
+        Set<State> set = new HashSet<>();
+        set.add(State.valueOf(state));
+        q.setState(set);
+        questionRepo.save(q);
+    }
+
+    public List<Enum<State>> loadStates() {
+        List<Enum<State>> states = new ArrayList<>();
+        states.add(State.NEW);
+        states.add(State.IN_PROGRESS);
+        states.add(State.ANSWERED);
+        states.add(State.REMOVED);
+        return states;
     }
 }

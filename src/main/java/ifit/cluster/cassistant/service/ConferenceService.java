@@ -14,4 +14,7 @@ public class ConferenceService{
         Conference conference = conferenceRepo.getById(id);
         return conference;
     }
+    public Iterable<Conference> getAll(){
+        return conferenceRepo.findAll();
+    }
 }
