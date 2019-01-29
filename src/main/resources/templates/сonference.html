@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Conference</title>
-    <link rel="stylesheet" href="/static/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -40,7 +38,7 @@
         </ul>
     </div>
 </nav>
-<span th:text="#{lang.change}"></span>:
+<span th:text="#{lang.change}"></span>
 <select id="locales">
     <option value=""></option>
     <option value="en" th:text="#{lang.eng}"></option>
@@ -52,6 +50,8 @@
     <div class="h5 text-center mt-3 mr-5">This is a test version of Conference Assistant</div>
     <br>
     <div class="jumbotron mt-5">
+        <span th:text="#{grating}"></span>
+        <h3 th:text="#{conference.name}"></h3>
         <h1 th:text="${conference.name}"></h1>
         <p class="lead" th:text="${conference.info}"></p>
         <div class="h3 text-center pt-3">List of active Topics</div>
