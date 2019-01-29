@@ -11,7 +11,10 @@ public class ConferenceService{
     private ConferenceRepo conferenceRepo;
 
     public Conference getById(Long id){
-        Conference conference = conferenceRepo.getById(id);
-        return conference;
+        return conferenceRepo.getById(id);
+    }
+
+    public Iterable<Conference> getAll(){
+        return conferenceRepo.findAll();
     }
 }

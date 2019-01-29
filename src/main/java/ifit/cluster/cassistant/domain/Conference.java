@@ -1,6 +1,7 @@
 package ifit.cluster.cassistant.domain;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ public class Conference {
     private String name;
     private String info;
 
-    @OneToMany(mappedBy = "conference", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "conference", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Topic> topics;
 
     public Conference() {
