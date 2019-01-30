@@ -24,69 +24,81 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/conf/1">Home</a>
+                <a class="nav-link" href="/conf/1" th:text="#{Home}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{'/topic/' + ${topic.id}}">Questions</a>
+                <a class="nav-link" th:href="@{'/topic/' + ${topic.id}}" th:text="#{Questions}">Questions</a>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link" th:text="#{lang.change}"></span>
+            </li>
+            <li class="nav-item">
+                <select class="nav-link p-0 mt-2 ml-2" id="locales">
+                    <option value=""></option>
+                    <option value="en" th:text="#{lang.eng}"></option>
+                    <option value="ua" th:text="#{lang.ua}"></option>
+                </select>
             </li>
         </ul>
     </div>
 </nav>
 <div class="container">
-    <h5 class="text-center mt-3">Moderator Page</h5>
+    <h5 class="text-center mt-3" th:text="#{ModeratorPage}">Moderator Page</h5>
     <div class="jumbotron mt-2 text-center">
-        <div class="h3">List of Questions</div>
+        <div class="h3" th:text="#{QuestionList}">List of Questions</div>
         <div class="" th:each="question : ${questions}">
             <div class="card my-3 rounded"
                  th:classappend="${#strings.toString(question.state) == '[IN_PROGRESS]'}? ' border border-primary'">
-                <div class="m-2" th:text="${question.text}">
+                <div class="m-2 p-2 h3 bg-dark text-white" th:text="${question.text}">
                     Question
                 </div>
-                    <div class="card-footer text-muted row justify-content-between m-0 p-3">
-                        <div class="text-left" th:text="|Asked by ${question.email}|" style="width: 30%"></div>
+                <div class="card-footer text-muted row justify-content-between m-2 p-0">
+                    <div class="text-left ml-3 mt-1" th:text="|#{AskedBy} ${question.email}|" style="width: 30%"></div>
 
                         <div th:if="${#strings.toString(question.state) == '[NEW]'}"
-                             th:text="|State:${question.state}|"
-                             class="px-2 py-1 bg-success text-white" style="width: 25%; margin-right: 100px;"></div>
+                             th:text="|#{topic.state}:${question.state}|"
+                             class="px-2 py-1 mt-1 text-success " style="width: 25%; margin-right: 100px;"></div>
                         <div th:if="${#strings.toString(question.state) == '[IN_PROGRESS]'}"
-                             th:text="|State:${question.state}|"
-                             class="px-2 py-1 bg-primary text-white" style="width: 25%; margin-right: 100px;"></div>
+                             th:text="|#{topic.state}:${question.state}|"
+                             class="px-2 py-1 mt-1 text-primary " style="width: 25%; margin-right: 100px;"></div>
                         <div th:if="${#strings.toString(question.state) == '[ANSWERED]'}"
-                             th:text="|State:${question.state}|"
-                             class="px-2 py-1 bg-secondary text-white" style="width: 25%; margin-right: 100px;"></div>
+                             th:text="|#{topic.state}:${question.state}|"
+                             class="px-2 py-1 mt-1 text-secondary " style="width: 25%; margin-right: 100px;"></div>
                         <div th:if="${#strings.toString(question.state) == '[REMOVED]'}"
-                             th:text="|State:${question.state}|"
-                             class="px-2 py-1 bg-danger text-white" style="width: 25%; margin-right: 100px;"></div>
+                             th:text="|#{topic.state}:${question.state}|"
+                             class="px-2 py-1 mt-1 text-danger " style="width: 25%; margin-right: 100px;"></div>
 
-                        <span th:text="|Rate:${question.rate}|"></span>
-                        <a class="btn btn-primary px-2 m-0" data-toggle="collapse"
+                        <div class="col-col-lg-3 mt-2" th:text="|#{topic.rate}:${question.rate}|"></div>
+                        <div class="col-col-lg-3 mr-3 mt-1">
+                        <a class="btn btn-primary px-2 py-1 m-0" data-toggle="collapse"
                            th:href="@{'#collapse' + ${question.id}}"
                            role="button"
-                           aria-expanded="true" aria-controls="collapse">
+                           aria-expanded="true" aria-controls="collapse" th:text="#{ChangeState}">
                             Change State
                         </a>
+                        </div>
                         <div class="row justify-content-md-center collapse" th:id="'collapse' + ${question.id}">
                             <div class="container mt-3">
                                 <form method="post" th:action="'/moderator/'+${topic.id}+'/'+${question.id}">
                                     <div class="row text-center">
                                         <div class="col col-lg-2">
                                             <button class="btn btn-success mr-5 px-5" type="submit" name="state"
-                                                    th:value="${states.get(0)}">New
+                                                    th:value="${states.get(0)}" th:text="#{New}">New
                                             </button>
                                         </div>
                                         <div class="col col-lg-4">
                                             <button class="btn btn-primary px-5" type="submit" name="state"
-                                                    th:value="${states.get(1)}">In Progress
+                                                    th:value="${states.get(1)}" th:text="#{InProgres}">In Progress
                                             </button>
                                         </div>
                                         <div class="col col-lg-3">
                                             <button class="btn btn-secondary mr-5 px-5" type="submit" name="state"
-                                                    th:value="${states.get(2)}">Answered
+                                                    th:value="${states.get(2)}" th:text="#{Answered}">Answered
                                             </button>
                                         </div>
                                         <div class="col col-lg-3">
                                             <button class="btn btn-danger mr-5 px-5" type="submit" name="state"
-                                                    th:value="${states.get(3)}">Removed
+                                                    th:value="${states.get(3)}" th:text="#{Removed}">Removed
                                             </button>
                                         </div>
                                     </div>

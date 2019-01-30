@@ -58,6 +58,7 @@ public class TopicService {
             if (!t.getLikes().contains(user)) {
                 t.getLikes().add(user);
                 t.setRate(t.getRate() + 1);
+                return t;
             } else {
                 t.setRate(t.getRate() - 1);
                 t.getLikes().remove(user);
@@ -68,13 +69,13 @@ public class TopicService {
             if (!q.getLikes().contains(user)) {
                 q.getLikes().add(user);
                 q.setRate(q.getRate() + 1);
+                return q;
             } else {
                 q.setRate(q.getRate() - 1);
                 q.getLikes().remove(user);
                 return q;
             }
         }
-        return null;
     }
 
 

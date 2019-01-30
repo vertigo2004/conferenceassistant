@@ -10,11 +10,22 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $('#locales').val();
+                if (selectedOption != ''){
+                    window.location.replace('?lang=' + selectedOption);
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Cassistant</a>
+    <a class="navbar-brand" href="#"  th:text="#{Cassistant}">Cassistant</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -23,66 +34,77 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/conf/1">Home</a>
+                <a class="nav-link" href="/conf/1" th:text="#{Home}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{'/moderator/' + ${topic.id}}">Edit Questions</a>
+                <a class="nav-link" th:href="@{'/moderator/' + ${topic.id}}" th:text="#{EditQuestion}">Edit Questions</a>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link" th:text="#{lang.change}"></span>
+            </li>
+            <li class="nav-item">
+                <select class="nav-link p-0 mt-2 ml-2" id="locales">
+                    <option value=""></option>
+                    <option value="en" th:text="#{lang.eng}"></option>
+                    <option value="ua" th:text="#{lang.ua}"></option>
+                </select>
             </li>
         </ul>
     </div>
 </nav>
 <div class="container">
-    <h5 class="text-center mt-2">Topic Page</h5>
+    <h5 class="text-center mt-2" th:text="#{TopicPage}">Topic Page</h5>
     <div class="jumbotron mt-2 text-center py-5">
+        <h5 class="m-0" th:text="#{topic.name}"></h5>
         <h1 th:text="|''${topic.name}''|"></h1>
-        <h3 th:text="|presenting by ${topic.speaker}| + ' . . . . . Rate:' + ${topic.rate}"></h3>
+        <h3 th:text="|#{topic.speaker} ${topic.speaker} #{topic.rate} ${topic.rate}|"></h3>
         <p class="lead" th:text="${topic.summary}"></p>
-        <p class="lead" th:text="|This conference starts at ${sdf.format(topic.dateTime.getTime())}|"></p>
-        <div class="h3">List of Questions</div>
+        <p class="lead" th:text="|#{topic.date} ${sdf.format(topic.dateTime.getTime())}|"></p>
+        <div class="h3" th:text="#{QuestionList}">List of Questions</div>
         <div class="" th:each="question : ${questions}">
             <div class="card my-4 rounded"
                  th:classappend="${#strings.toString(question.state) == '[IN_PROGRESS]'}? ' border border-primary'">
-                <div class="m-2" th:text="${question.text}">
+                <div class="m-2 p-2 h3 bg-dark text-white" th:text="${question.text}">
                     Question
                 </div>
                 <form method="post" th:action="'/question/like/'+ ${topic.id}">
-                    <div class="card-footer text-muted row justify-content-between m-0 p-3">
-                        <div class="text-left" th:text="|Asked by ${question.email}|" style="width: 30%"></div>
+                    <div class="card-footer text-muted row justify-content-between m-2 p-0">
+                        <div class="text-left ml-3 mt-1" th:text="|#{AskedBy} ${question.email}|" style="width: 30%"></div>
 
                         <div th:if="${#strings.toString(question.state) == '[NEW]'}"
-                             th:text="|State:${question.state}|"
-                             class="px-2 py-1 bg-success text-white" style="width: 25%; margin-right: 100px;"></div>
+                             th:text="|#{topic.state}:${question.state}|"
+                             class="px-2 py-1 mt-1 text-success " style="width: 25%; margin-right: 100px;"></div>
                         <div th:if="${#strings.toString(question.state) == '[IN_PROGRESS]'}"
-                             th:text="|State:${question.state}|"
-                             class="px-2 py-1 bg-primary text-white" style="width: 25%; margin-right: 100px;"></div>
+                             th:text="|#{topic.state}:${question.state}|"
+                             class="px-2 py-1 mt-1 text-primary " style="width: 25%; margin-right: 100px;"></div>
                         <div th:if="${#strings.toString(question.state) == '[ANSWERED]'}"
-                             th:text="|State:${question.state}|"
-                             class="px-2 py-1 bg-secondary text-white" style="width: 25%; margin-right: 100px;"></div>
+                             th:text="|#{topic.state}:${question.state}|"
+                             class="px-2 py-1 mt-1 text-secondary " style="width: 25%; margin-right: 100px;"></div>
                         <div th:if="${#strings.toString(question.state) == '[REMOVED]'}"
-                             th:text="|State:${question.state}|"
-                             class="px-2 py-1 bg-danger text-white" style="width: 25%; margin-right: 100px;"></div>
+                             th:text="|#{topic.state}:${question.state}|"
+                             class="px-2 py-1 mt-1 text-danger " style="width: 25%; margin-right: 100px;"></div>
 
-                        <div class="col-col-lg-3" th:text="|Rate:${question.rate}|"></div>
-                        <div class="col-col-lg-3">
-                            <a class="btn btn-primary px-2 m-0" data-toggle="collapse"
+                        <div class="col-col-lg-3 mt-2" th:text="|#{topic.rate}:${question.rate}|"></div>
+                        <div class="col-col-lg-3 mr-3 mt-1">
+                            <a class="btn btn-primary px-2 py-1 m-0" data-toggle="collapse"
                                th:href="@{'#collapse' + ${question.id}}"
                                role="button"
-                               aria-expanded="false" aria-controls="collapseLike">Like
+                               aria-expanded="false" aria-controls="collapseLike" th:text="#{topic.like}">Like
                             </a>
                         </div>
                         <div class="collapse" th:id="'collapse' + ${question.id}">
                             <div class="container mt-3">
                                 <div class="row text-left">
                                     <div class="col col-lg-4">
-                                        <input class="form-control" type="text" name="email" placeholder="Enter email">
+                                        <input class="form-control" type="text" name="email" th:placeholder="#{Email-placeholder}">
                                     </div>
                                     <div class="col col-lg-5">
                                         <input class="form-control" type="text" name="nickname"
-                                               placeholder="Enter nickname (optional)">
+                                               th:placeholder="#{Nickname-placeholder}">
                                     </div>
-                                    <div class="col">
+                                    <div class="col col-lg-3">
                                         <button class="btn btn-primary mr-5" type="submit" name="id"
-                                                th:value="${question.id}">
+                                                th:value="${question.id}" th:text="#{topic.like}">
                                             Like
                                         </button>
                                     </div>
@@ -95,15 +117,15 @@
         </div>
 
         <a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseExample" role="button"
-           aria-expanded="false" aria-controls="collapseExample">
+           aria-expanded="false" aria-controls="collapseExample" th:text="#{AddNewQuestion}">
             Add New Question
         </a>
         <div class="collapse" id="collapseExample">
             <div class="form-group">
                 <form method="post" action="/topic/question">
-                    <input type="text" name="text" class="form-control my-1" placeholder="Enter Question"/>
-                    <input type="text" name="email" class="form-control my-1" placeholder="Enter Email"/>
-                    <button class="btn btn-primary" type="submit" name="id" th:value="${topic.id}">Add Question</button>
+                    <input type="text" name="text" class="form-control my-1" th:placeholder="#{Text-placeholder}"/>
+                    <input type="text" name="email" class="form-control my-1" th:placeholder="#{Email-placeholder}"/>
+                    <button class="btn btn-primary" type="submit" name="id" th:text="#{Add}" th:value="${topic.id}">Add Question</button>
                 </form>
             </div>
         </div>
