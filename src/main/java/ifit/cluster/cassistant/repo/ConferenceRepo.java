@@ -9,6 +9,6 @@ public interface ConferenceRepo extends CrudRepository<Conference, Long> {
 
     Conference getById(Long id);
 
-    Iterable<Conference> getAll();
+    Iterable<Conference> findAll();
 
 }

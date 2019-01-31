@@ -5,12 +5,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface QuestionRepo extends CrudRepository<QuestionRepo, Long> {
+public interface QuestionRepo extends CrudRepository<Question, Long> {
 
-    void IncrementRate(Question question);
+    // IncrementRate(Question question);
 
-    boolean checkEmail(String email);
+   // boolean checkEmail(String email);
 
-    void updateState(Question question);
+    //void updateState(Question question);
 
 }

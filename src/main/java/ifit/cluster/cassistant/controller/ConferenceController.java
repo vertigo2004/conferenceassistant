@@ -24,7 +24,7 @@ public class ConferenceController {
 
     @GetMapping("all")
     public String conferences(Model model) {
-        model.addAttribute("conferences", conferenceService.finadALl());
+        model.addAttribute("conferences", conferenceService.findAll());
         return "conferences";
 
     }

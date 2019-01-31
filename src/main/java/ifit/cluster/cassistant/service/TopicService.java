@@ -10,16 +10,16 @@ public class TopicService {
     @Autowired
     private TopicRepo topicRepo;
 
-    void IncrementRate(Topic topic) {
-        topic.setRate(topic.getRate() + 1);
-    }
+//    void IncrementRate(Topic topic) {
+//        topic.setRate(topic.getRate() + 1);
+//    }
 
-    private boolean checkEmail(String email) {
-        return false;
-    }
+//    private boolean checkEmail(String email) {
+//        return false;
+//    }
 
     public Topic getTopic(Long topicID) {
-        return topicRepo.getTopic(topicID);
+        return topicRepo.findById(topicID).get();
     }
 
 }
