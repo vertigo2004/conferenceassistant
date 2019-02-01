@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ConferenceRepo extends CrudRepository<Conference, Long> {
 
-    Conference getById(Long id);
+    //Conference getById(Long id);
 
-    Iterable<Conference> findAll();
+  //  Iterable<Conference> findAll();
 
 }

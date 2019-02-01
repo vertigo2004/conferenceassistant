@@ -30,7 +30,6 @@ public class Topic extends BaseEntity{
     @JsonIgnore
     private Conference conference;
 
-    @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY)
-    private List<Question> questions;
-
+//    @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY)
+//    private List<Question> questions;
 }

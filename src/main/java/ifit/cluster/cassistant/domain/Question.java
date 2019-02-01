@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,9 +24,9 @@ public class Question extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Topic topic;
 
-//    @ElementCollection(targetClass = State.class, fetch = FetchType.EAGER)
-//    @CollectionTable(name = "question_state", joinColumns = @JoinColumn(name = "question_id"))
-//    @Enumerated(EnumType.STRING)
-//    private State state;
+    @ElementCollection(targetClass = State.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "question_state", joinColumns = @JoinColumn(name = "question_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<State> state = new HashSet<>();
 
 }

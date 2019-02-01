@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/conf/")
+@RequestMapping("/conference/")
 @Controller
 public class ConferenceController {
     @Autowired
     private ConferenceService conferenceService;
 
     @GetMapping("{id}")
-    public String conference(@PathVariable Long id, Model model){
+    public String getConference(@PathVariable Long id, Model model){
         model.addAttribute("conference", conferenceService.getById(id));
 
         return "conference";
     }
 
     @GetMapping("all")
-    public String conferences(Model model) {
+    public String getAllConferences(Model model) {
         model.addAttribute("conferences", conferenceService.findAll());
         return "conferences";
 

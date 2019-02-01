@@ -1,5 +1,5 @@
 package ifit.cluster.cassistant.domain;
 
 public enum State {
-    NEW, IN_PROGRESS, ANSWERED, REMOVED
+    STATE_NEW, STATE_IN_PROGRESS, STATE_ANSWERED, STATE_REMOVED
 }

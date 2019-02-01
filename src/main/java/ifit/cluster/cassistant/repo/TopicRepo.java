@@ -7,9 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TopicRepo extends CrudRepository<Topic, Long> {
 
-    //void IncrementRate(Topic topic);
-
-    //boolean checkEmail(String email);
-
-    //Topic getTopic(Long topicID);
 }
