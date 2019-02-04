@@ -34,9 +34,10 @@
 <h2 th:text="#{conference.info}">Info</h2>
 <p th:text="${conference.info}">
 
-<form method="post" action="/topic/like">
+<form method="post" th:action="@{/topic/like}">
     <input type="text" name="email" th:value="${user}">
     <input type="text" name="nickname" th:value="${user}">
+
 <table border="1">
     <thead>
     <tr>
