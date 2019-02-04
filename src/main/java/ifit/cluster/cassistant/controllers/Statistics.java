@@ -8,8 +8,14 @@ import javax.annotation.security.RolesAllowed;
 @Controller
 public class Statistics {
 
+    @GetMapping("/stat/conf")
+    @RolesAllowed({"ROLE_MODERATOR", "ROLE_ADMIN"})
+    public String privateConf() {
+        return "redirect:/conference/1";
+    }
+
     @GetMapping("/stat/admin")
-    @RolesAllowed("ROLE_MODERATOR")
+    @RolesAllowed("ROLE_ADMIN")
     public String privateHome() {
         return "privatePage";
     }
