@@ -62,23 +62,23 @@ public class CassistantApplication {
                     , "Same shit here, must be very smart question to the speaker"
                     , 5
                     , topic1
-                    , Collections.singleton(State.NEW));
+                    , State.NEW);
             Question question2 = new Question("somemail@gmail.com"
                     , "Here must be very smart question to the speaker?"
                     , 3
                     , topic1
-                    , Collections.singleton(State.IN_PROGRESS));
+                    , State.IN_PROGRESS);
 
             Question question3 = new Question("email@gmail.com"
                     , "How long time person has to quite smoking, instantly or for a while time ?"
                     , 5
                     , topic2
-                    , Collections.singleton(State.ANSWERED));
+                    , State.ANSWERED);
             Question question4 = new Question("mailexample@gmail.com"
                     , "What is the best practice for quite smoking without downsides?"
                     , 3
                     , topic2
-                    , Collections.singleton(State.REMOVED));
+                    , State.REMOVED);
             conferenceRepo.save(conf1);
             topicRepo.save(topic1);
             topicRepo.save(topic2);

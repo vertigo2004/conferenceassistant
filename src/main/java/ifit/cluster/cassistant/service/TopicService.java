@@ -1,5 +1,6 @@
 package ifit.cluster.cassistant.service;
 
+import ifit.cluster.cassistant.domain.Conference;
 import ifit.cluster.cassistant.domain.Question;
 import ifit.cluster.cassistant.domain.Topic;
 import ifit.cluster.cassistant.domain.User;
@@ -78,8 +79,9 @@ public class TopicService {
         }
     }
 
-
-
-
+public List<Topic> sortTopicsByRate(Conference conf){
+        List<Topic> list = topicRepo.findAllByConferenceOrderByRateDesc(conf);
+        return list;
+}
 
 }

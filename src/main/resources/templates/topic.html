@@ -71,17 +71,17 @@
                     <div class="card-footer text-muted row justify-content-between m-2 p-0">
                         <div class="text-left ml-3 mt-1" th:text="|#{AskedBy} ${question.email}|" style="width: 30%"></div>
 
-                        <div th:if="${#strings.toString(question.state) == '[NEW]'}"
-                             th:text="|#{topic.state}:${question.state}|"
+                        <div th:if="${#strings.toString(question.state) == 'NEW'}"
+                             th:text="|#{topic.state}: ${question.state}|"
                              class="px-2 py-1 mt-1 text-success " style="width: 25%; margin-right: 100px;"></div>
-                        <div th:if="${#strings.toString(question.state) == '[IN_PROGRESS]'}"
-                             th:text="|#{topic.state}:${question.state}|"
+                        <div th:if="${#strings.toString(question.state) == 'IN_PROGRESS'}"
+                             th:text="|#{topic.state}: ${question.state}|"
                              class="px-2 py-1 mt-1 text-primary " style="width: 25%; margin-right: 100px;"></div>
-                        <div th:if="${#strings.toString(question.state) == '[ANSWERED]'}"
-                             th:text="|#{topic.state}:${question.state}|"
+                        <div th:if="${#strings.toString(question.state) == 'ANSWERED'}"
+                             th:text="|#{topic.state}: ${question.state}|"
                              class="px-2 py-1 mt-1 text-secondary " style="width: 25%; margin-right: 100px;"></div>
-                        <div th:if="${#strings.toString(question.state) == '[REMOVED]'}"
-                             th:text="|#{topic.state}:${question.state}|"
+                        <div th:if="${#strings.toString(question.state) == 'REMOVED'}"
+                             th:text="|#{topic.state}: ${question.state}|"
                              class="px-2 py-1 mt-1 text-danger " style="width: 25%; margin-right: 100px;"></div>
 
                         <div class="col-col-lg-3 mt-2" th:text="|#{topic.rate}:${question.rate}|"></div>

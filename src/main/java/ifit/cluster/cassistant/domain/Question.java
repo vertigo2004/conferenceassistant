@@ -17,10 +17,7 @@ public class Question {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Topic topic;
-    @ElementCollection(targetClass = State.class,fetch = FetchType.EAGER)
-    @CollectionTable(name = "question_state", joinColumns = @JoinColumn(name = "question_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<State> state;
+    private State state;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<User> likes;
@@ -28,7 +25,7 @@ public class Question {
     public Question() {
     }
 
-    public Question(String email, String text, Integer rate, Topic topic, Set<State> state) {
+    public Question(String email, String text, Integer rate, Topic topic, State state) {
         this.email = email;
         this.text = text;
         this.rate = rate;
@@ -66,10 +63,10 @@ public class Question {
     public void setTopic(Topic topic) {
         this.topic = topic;
     }
-    public Set<State> getState() {
+    public State getState() {
         return state;
     }
-    public void setState(Set<State> state) {
+    public void setState(State state) {
         this.state = state;
     }
     public Set<User> getLikes() {

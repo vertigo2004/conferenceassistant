@@ -37,7 +37,7 @@ public class QuestionService {
 
     public Question newQuestion(Long id, String text, String email){
         Topic t = topicRepo.getById(id);
-        Question question = new Question(email, text, 0, t, Collections.singleton(State.NEW));
+        Question question = new Question(email, text, 0, t, State.NEW);
         questionRepo.save(question);
         return question;
     }
@@ -54,14 +54,12 @@ public class QuestionService {
 
     public void changeState(Long questionId, String state){
         Question q = getQuestion(questionId);
-        Set<State> set = new HashSet<>();
-        set.add(State.valueOf(state));
-        q.setState(set);
+        q.setState(State.valueOf(state));
         questionRepo.save(q);
     }
 
-    public List<Enum<State>> loadStates() {
-        List<Enum<State>> states = new ArrayList<>();
+    public List<State> loadStates() {
+        List<State> states = new ArrayList<>();
         states.add(State.NEW);
         states.add(State.IN_PROGRESS);
         states.add(State.ANSWERED);

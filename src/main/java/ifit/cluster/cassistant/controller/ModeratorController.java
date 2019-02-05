@@ -26,7 +26,7 @@ public class ModeratorController {
     public String questionList(@PathVariable Long id, Model model) {
         Topic topic = topicService.getTopic(id);
         model.addAttribute("topic", topic);
-        List<Enum<State>> states = questionService.loadStates();
+        List<State> states = questionService.loadStates();
         model.addAttribute("states", states);
         Iterable<Question> questions = questionService.sortQuestion(topic.getQuestions());
         model.addAttribute("questions", questions);

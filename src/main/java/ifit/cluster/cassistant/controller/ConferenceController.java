@@ -24,7 +24,7 @@ public class ConferenceController {
     @GetMapping("/{id}")
     public String conference(@PathVariable Long id, Model model){
         Conference conference = conferenceService.getById(id);
-        Iterable<Topic> topics = topicService.sortTopics(topicService.getAll());
+        Iterable<Topic> topics = topicService.sortTopicsByRate(conference);
         model.addAttribute("conference", conference);
         model.addAttribute("topics", topics);
         return "сonference";
