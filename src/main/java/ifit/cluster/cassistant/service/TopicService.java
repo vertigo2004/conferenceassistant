@@ -10,5 +10,11 @@ public class TopicService {
     @Autowired
     private TopicRepo topicRepo;
 
+    public Topic getById(Long id){
+        return topicRepo.getById(id);
+    }
 
+    public Iterable<Topic> getAll(){
+        return topicRepo.findAll();
+    }
 }

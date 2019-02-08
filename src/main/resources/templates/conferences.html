@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Конференції</title>
 </head>
 <body>
+<p>СПИСОК КОНФЕРЕНЦІЙ:</p>
 <p th:each="conference : ${conferences}">
     <a th:href="@{'/conf/' + ${conference.id}}"> <span th:text="${conference.name}"></span></a>
 </p>

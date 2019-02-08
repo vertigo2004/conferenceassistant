@@ -2,20 +2,25 @@ package ifit.cluster.cassistant.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Topic {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     private String name;
@@ -27,20 +32,21 @@ public class Topic {
     @JsonIgnore
     private Conference conference;
 
-    @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Question> questions;
-    private Integer rate;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<User> likes;
 
     public Topic() {
     }
 
-    public Topic(String name, String summary, String speaker, Date dateTime, Conference conference, Integer rate) {
+    public Topic(String name, String summary, String speaker, Date dateTime, Conference conference) {
         this.name = name;
         this.summary = summary;
         this.speaker = speaker;
         this.dateTime = dateTime;
         this.conference = conference;
-        this.rate = rate;
     }
 
     public Long getId() {
@@ -99,11 +105,16 @@ public class Topic {
         this.questions = questions;
     }
 
-    public Integer getRate() {
-        return rate;
+    public Set<User> getLikes() {
+        return likes;
     }
 
-    public void setRate(Integer rate) {
-        this.rate = rate;
+    public void setLikes(Set<User> likes) {
+        this.likes = likes;
+    }
+
+    @Transient
+    public int getRate(){
+        return likes == null ? 0 : likes.size();
     }
 }
