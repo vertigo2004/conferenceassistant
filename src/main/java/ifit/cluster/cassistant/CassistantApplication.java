@@ -39,7 +39,7 @@ public class CassistantApplication {
             Topic t4 = new Topic("Алкоголь", "Шкідливий вплив алкоголю", "Алкоголік", Calendar.getInstance().getTime(), c2);
 
             Question q1 = new Question("email1@ukr.net", "Який запас ходу електромобіля на одному заряді?", t1, State.NEW);
-            Question q2 = new Question("email2ukr.net", "Який час повної зарядки електромобіля?", t1, State.NEW);
+            Question q2 = new Question("email2@ukr.net", "Який час повної зарядки електромобіля?", t1, State.NEW);
             Question q3 = new Question("email3@ukr.net", "Яка витрата палива гібридного автомобіля?", t2, State.NEW);
             Question q4 = new Question("email4@ukr.net", "Яка сумарна потужність гібридного автомоблія?", t2, State.NEW);
             Question q5 = new Question("email5@ukr.net", "Скільки сигарет в день Ви викурюєте?", t3, State.NEW);

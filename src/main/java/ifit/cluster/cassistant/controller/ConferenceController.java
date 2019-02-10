@@ -13,15 +13,7 @@ public class ConferenceController {
     @Autowired
     private ConferenceService conferenceService;
 
-//    @GetMapping("/")
-//    public String conference(Model model){
-//        Conference conference = conferenceService.getById(1L);
-//        model.addAttribute("conference", conference);
-//
-//        return "Conference";
-//    }
-
-    @GetMapping("/conf/{id}")
+    @GetMapping("/conference/{id}")
     public String conference(@PathVariable Long id, Model model){
         Conference conference = conferenceService.getById(id);
         model.addAttribute("conference", conference);
@@ -29,13 +21,11 @@ public class ConferenceController {
         return "conference";
     }
 
-    @GetMapping("/conf")
+    @GetMapping("/conferences")
     public String conferences(Model model) {
         Iterable<Conference> conferences = conferenceService.getAll();
         model.addAttribute("conferences", conferences);
-
         return "conferences";
-
     }
 
 }

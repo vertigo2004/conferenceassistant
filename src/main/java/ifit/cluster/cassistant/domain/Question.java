@@ -21,7 +21,7 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long Id;
+    private Long id;
 
     private String email;
     private String text;
@@ -47,7 +47,7 @@ public class Question {
     }
 
     public void setId(Long id) {
-        Id = id;
+        id = id;
     }
 
     public void setEmail(String email) {
@@ -71,7 +71,7 @@ public class Question {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public String getEmail() {

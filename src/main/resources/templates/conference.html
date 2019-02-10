@@ -7,30 +7,36 @@
 <body>
     <h1 th:text="${conference.name}">Conference name</h1>
     <h3 th:text="${conference.info}">Conference info</h3>
-    <p>ДОПОВІДІ КОНФЕРЕНЦІЇ:</p>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Дата</th>
-                <th>Назва</th>
-                <th>Короткий опис</th>
-                <th>Доповідач</th>
-                <th>Рейтинг</th>
-                <th>Подобається</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="topic : ${topics}">
-                <td th:text="${topic.dateTime}">Дата</td>
-                <td>
-                    <a th:href="@{'/topic/' + ${topic.id}}"><span th:text="${topic.name}"></span></a>
-                </td>
-                <td th:text="${topic.summary}">Короткий опис</td>
-                <td th:text="${topic.speaker}">Доповідач</td>
-                <td th:text="${topic.getRate()}">Рейтинг</td>
-                <td><button>Поодобається</button></td>
-            </tr>
-        </tbody>
-    </table>
+    <form method="post" action="/topic/like">
+        <p>ДОПОВІДІ КОНФЕРЕНЦІЇ:</p>
+        <input type="text" name="email">
+        <input type="text" name="nickname">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Назва</th>
+                    <th>Короткий опис</th>
+                    <th>Доповідач</th>
+                    <th>Рейтинг</th>
+                    <th>Подобається</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="topic : ${topics}">
+                    <td th:text="${#dates.format(topic.dateTime, 'dd.mm.yyyy HH:mm')}">Дата</td>
+                    <td>
+                        <a th:href="@{'/topic/' + ${topic.id}}"><span th:text="${topic.name}"></span></a>
+                    </td>
+                    <td th:text="${topic.summary}">Короткий опис</td>
+                    <td th:text="${topic.speaker}">Доповідач</td>
+                    <td th:text="${topic.getRate()}">Рейтинг</td>
+                    <td>
+                        <button type="submit" name="id" th:value="${topic.id}">Подобається</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
 </body>
 </html>
