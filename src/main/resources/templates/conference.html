@@ -8,18 +8,18 @@
     <h1 th:text="${conference.name}">Conference name</h1>
     <h3 th:text="${conference.info}">Conference info</h3>
     <form method="post" action="/topic/like">
-        <p>ДОПОВІДІ КОНФЕРЕНЦІЇ:</p>
         <input type="text" name="email">
         <input type="text" name="nickname">
         <table border="1">
+            <caption th:text="#{topic.list}">ДОПОВІДІ КОНФЕРЕНЦІЇ</caption>
             <thead>
                 <tr>
-                    <th>Дата</th>
-                    <th>Назва</th>
-                    <th>Короткий опис</th>
-                    <th>Доповідач</th>
-                    <th>Рейтинг</th>
-                    <th>Подобається</th>
+                    <th th:text="#{topic.date}">Дата</th>
+                    <th th:text="#{topic.name}">Назва</th>
+                    <th th:text="#{topic.summary}">Короткий опис</th>
+                    <th th:text="#{topic.speaker}">Доповідач</th>
+                    <th th:text="#{topic.rate}">Рейтинг</th>
+                    <th th:text="#{topic.like}">Подобається</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +32,7 @@
                     <td th:text="${topic.speaker}">Доповідач</td>
                     <td th:text="${topic.getRate()}">Рейтинг</td>
                     <td>
-                        <button type="submit" name="id" th:value="${topic.id}">Подобається</button>
+                        <button type="submit" name="id" th:text="#{topic.like}" th:value="${topic.id}">Подобається</button>
                     </td>
                 </tr>
             </tbody>

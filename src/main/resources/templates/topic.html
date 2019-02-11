@@ -10,17 +10,17 @@
     <p th:text="'Доповідач: ' + ${topic.speaker}">Topic speaker</p>
     <p th:text="'Дата та час проведення: ' + ${#dates.format(topic.dateTime, 'dd.mm.yyyy HH:mm')}">Topic dateTime</p>
     <form method="post" action="/question/like">
-        <p>ПИТАННЯ ДО ДОПОВІДІ:</p>
         <input type="text" name="email">
         <input type="text" name="nickname">
         <table border="1">
+            <caption th:text="#{question.list}">ПИТАННЯ ДО ДОПОВІДІ</caption>
             <thead>
                 <tr>
-                    <th>Питання</th>
-                    <th>Пошта автора</th>
-                    <th>Статус</th>
-                    <th>Рейтинг</th>
-                    <th>Подобається</th>
+                    <th th:text="#{question.text}">Питання</th>
+                    <th th:text="#{question.email}">Пошта автора</th>
+                    <th th:text="#{question.state}">Статус</th>
+                    <th th:text="#{question.rate}">Рейтинг</th>
+                    <th th:text="#{question.like}">Подобається</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,7 +30,7 @@
                     <td th:text="${question.state}">Статус</td>
                     <td th:text="${question.getRate()}">Рейтинг</td>
                     <td>
-                        <button type="submit" name="id" th:value="${question.id}">Подобається</button>
+                        <button type="submit" name="id" th:text="#{question.like}" th:value="${question.id}">Подобається</button>
                     </td>
                 </tr>
             </tbody>
