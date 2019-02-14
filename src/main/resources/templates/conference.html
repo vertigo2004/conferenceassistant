@@ -7,7 +7,7 @@
 <body>
     <h1 th:text="${conference.name}">Conference name</h1>
     <h3 th:text="${conference.info}">Conference info</h3>
-    <form method="post" action="/topic/like">
+    <form method="post" th:action="@{/topic/like}">
         <input type="text" name="email">
         <input type="text" name="nickname">
         <table border="1">
@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 <tr th:each="topic : ${topics}">
-                    <td th:text="${#dates.format(topic.dateTime, 'dd.mm.yyyy HH:mm')}">Дата</td>
+                    <td th:text="${#dates.format(topic.dateTime, 'dd.MM.yyyy HH:mm')}">Дата</td>
                     <td>
                         <a th:href="@{'/topic/' + ${topic.id}}"><span th:text="${topic.name}"></span></a>
                     </td>

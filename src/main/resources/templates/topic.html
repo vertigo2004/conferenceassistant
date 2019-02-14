@@ -8,8 +8,8 @@
     <h2 th:text="${topic.name}">Topic name</h2>
     <h4 th:text="${topic.summary}">Topic summary</h4>
     <p th:text="'Доповідач: ' + ${topic.speaker}">Topic speaker</p>
-    <p th:text="'Дата та час проведення: ' + ${#dates.format(topic.dateTime, 'dd.mm.yyyy HH:mm')}">Topic dateTime</p>
-    <form method="post" action="/question/like">
+    <p th:text="'Дата та час проведення: ' + ${#dates.format(topic.dateTime, 'dd.MM.yyyy HH:mm')}">Topic dateTime</p>
+    <form method="post" th:action="@{/question/like}">
         <input type="text" name="email">
         <input type="text" name="nickname">
         <table border="1">
