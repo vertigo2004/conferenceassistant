@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,7 +23,7 @@ public class ConferenceService {
         return Stream.generate(iterator::next).collect(Collectors.toList());
     }
 
-    public Conference getConference(Long id) {
-        return conferenceRepository.findById(id).get();
+    public Optional<Conference> getConference(Long id) {
+        return conferenceRepository.findById(id);
     }
 }
