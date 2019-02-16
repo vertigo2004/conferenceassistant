@@ -27,4 +27,8 @@ public class ConferenceService{
         return conferenceRepo.save(conference);
     }
 
+    public void deleteConference(Long id){
+        conferenceRepo.deleteById(id);
+    }
+
 }

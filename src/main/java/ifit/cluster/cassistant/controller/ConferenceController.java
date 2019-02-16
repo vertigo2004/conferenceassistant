@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ConferenceController {
@@ -44,6 +45,12 @@ public class ConferenceController {
     @PostMapping("/conference/save")
     public String saveConference(@ModelAttribute Conference conference){
         conferenceService.saveConference(conference);
+        return "redirect:/conferences";
+    }
+
+    @PostMapping("/conference/delete")
+    public String deleteConference(@RequestParam Long id){
+        conferenceService.deleteConference(id);
         return "redirect:/conferences";
     }
 

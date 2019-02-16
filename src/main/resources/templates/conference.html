@@ -5,6 +5,10 @@
     <title th:text="${conference.name}">Конференція</title>
 </head>
 <body>
+    <nav>
+        <a th:href="@{/index}" th:text="#{index.main}"></a> >
+        <a th:href="@{/conferences}" th:text="#{conference.list}"></a>
+    </nav>
     <h1 th:text="${conference.name}">Conference name</h1>
     <h3 th:text="${conference.info}">Conference info</h3>
     <form id="like" method="post" th:action="@{/topic/like}">
@@ -21,6 +25,7 @@
                     <th th:text="#{topic.speaker}">Доповідач</th>
                     <th th:text="#{topic.rate}">Рейтинг</th>
                     <th th:text="#{topic.like}">Подобається</th>
+                    <th th:text="#{topic.delete}">Видалити</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +39,11 @@
                     <td th:text="${topic.getRate()}">Рейтинг</td>
                     <td>
                         <button form="like" type="submit" name="id" th:text="#{topic.like}" th:value="${topic.id}">Подобається</button>
+                    </td>
+                    <td>
+                        <form method="post" th:action="@{/topic/delete}">
+                            <button type="submit" name="id" th:text="#{topic.delete}" th:value="${topic.id}">Видалити</button>
+                        </form>
                     </td>
                 </tr>
             </tbody>

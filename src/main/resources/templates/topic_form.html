@@ -5,6 +5,11 @@
     <title th:text="#{topic.add}">Додати доповідь</title>
 </head>
 <body>
+<nav>
+    <a th:href="@{/index}" th:text="#{index.main}"></a> >
+    <a th:href="@{/conferences}" th:text="#{conference.list}"></a> >
+    <a th:href="@{/conference/{id}(id=${conference.id})}" th:text="${conference.name}"></a>
+</nav>
 <h3 th:text="#{topic.new}">Нова доповідь</h3>
 <form method="post" th:action="@{/topic/save}" th:object="${topic}">
     <p th:text="#{topic.field} + ':'">Заповніть поля</p>

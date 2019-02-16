@@ -54,4 +54,11 @@ public class QuestionController {
         questionService.saveQuestion(question);
         return "redirect:/topic/" + topic.getId();
     }
+
+    @PostMapping("/question/delete")
+    public String deleteQuestion(@RequestParam Long id){
+        Long topicId = questionService.getById(id).getTopic().getId();
+        questionService.deleteQuestion(id);
+        return "redirect:/topic/" + topicId;
+    }
 }

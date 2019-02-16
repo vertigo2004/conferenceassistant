@@ -5,13 +5,19 @@
     <title th:text="${topic.name}">Доповідь</title>
 </head>
 <body>
+    <nav>
+        <a th:href="@{/index}" th:text="#{index.main}"></a> >
+        <a th:href="@{/conferences}" th:text="#{conference.list}"></a> >
+        <a th:href="@{/conference/{id}(id=${topic.conference.id})}" th:text="${topic.conference.name}"></a>
+    </nav>
     <h2 th:text="${topic.name}">Topic name</h2>
     <h4 th:text="${topic.summary}">Topic summary</h4>
     <p th:text="'Доповідач: ' + ${topic.speaker}">Topic speaker</p>
     <p th:text="'Дата та час проведення: ' + ${#dates.format(topic.dateTime, 'dd.MM.yyyy HH:mm')}">Topic dateTime</p>
-    <form method="post" th:action="@{/question/like}">
+    <form id="like" method="post" th:action="@{/question/like}">
         <input type="text" name="email">
         <input type="text" name="nickname">
+    </form>
         <table border="1">
             <caption th:text="#{question.list}">ПИТАННЯ ДО ДОПОВІДІ</caption>
             <thead>
@@ -21,6 +27,7 @@
                     <th th:text="#{question.state}">Статус</th>
                     <th th:text="#{question.rate}">Рейтинг</th>
                     <th th:text="#{question.like}">Подобається</th>
+                    <th th:text="#{question.delete}">Видалити</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,12 +37,16 @@
                     <td th:text="${question.state}">Статус</td>
                     <td th:text="${question.getRate()}">Рейтинг</td>
                     <td>
-                        <button type="submit" name="id" th:text="#{question.like}" th:value="${question.id}">Подобається</button>
+                        <button form="like" type="submit" name="id" th:text="#{question.like}" th:value="${question.id}">Подобається</button>
+                    </td>
+                    <td>
+                        <form method="post" th:action="@{/question/delete}">
+                            <button type="submit" name="id" th:text="#{question.delete}" th:value="${question.id}">Видалити</button>
+                        </form>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </form>
     <form method="post" th:action="@{/question/add}">
         <p><button type="submit" name="topicId" th:value="${topic.id}" th:text="#{question.add}">Додати</button></p>
     </form>

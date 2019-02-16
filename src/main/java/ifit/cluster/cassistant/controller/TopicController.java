@@ -62,4 +62,11 @@ public class TopicController {
         topicService.saveTopic(topic);
         return "redirect:/conference/" + conference.getId();
     }
+
+    @PostMapping("/topic/delete")
+    public String deleteTopic(@RequestParam Long id){
+        Long conferenceId = topicService.getById(id).getConference().getId();
+        topicService.deleteTopic(id);
+        return "redirect:/conference/" + conferenceId;
+    }
 }

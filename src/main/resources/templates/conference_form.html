@@ -5,6 +5,10 @@
     <title th:text="#{conference.add}">Додати конференцію</title>
 </head>
 <body>
+<nav>
+    <a th:href="@{/index}" th:text="#{index.main}"></a> >
+    <a th:href="@{/conferences}" th:text="#{conference.list}"></a>
+</nav>
 <h3 th:text="#{conference.new}">Нова конференція</h3>
 <form method="post" th:action="@{/conference/save}" th:object="${conference}">
     <p th:text="#{conference.field} + ':'">Заповніть поля</p>

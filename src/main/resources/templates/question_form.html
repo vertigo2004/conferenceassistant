@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title th:text="#{question.add}">Додати питання</title>
 </head>
+<nav>
+    <a th:href="@{/index}" th:text="#{index.main}"></a> >
+    <a th:href="@{/conferences}" th:text="#{conference.list}"></a> >
+    <a th:href="@{/conference/{id}(id=${topic.conference.id})}" th:text="${topic.conference.name}"></a> >
+    <a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.name}"></a>
+</nav>
 <body>
 <h3 th:text="#{question.new}">Новe питання</h3>
 <form method="post" th:action="@{/question/save}" th:object="${question}">

@@ -5,12 +5,16 @@
     <title th:text="#{conference.list}">Конференції</title>
 </head>
 <body>
+    <nav>
+        <a th:href="@{/index}" th:text="#{index.main}"></a>
+    </nav>
     <table border="1">
         <caption th:text="#{conference.list}">КОНФЕРЕНЦІЇ</caption>
         <thead>
             <tr>
                 <th th:text="#{conference.name}">Назва конференції</th>
                 <th th:text="#{conference.info}">Загальна інформація</th>
+                <th th:text="#{conference.delete}">Видалити</th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +23,11 @@
                     <a th:href="@{'/conference/' + ${conference.id}}"> <span th:text="${conference.name}"></span></a>
                 </td>
                 <td th:text="${conference.info}"></td>
+                <td>
+                    <form method="post" th:action="@{/conference/delete}">
+                        <button type="submit" name="id" th:text="#{conference.delete}" th:value="${conference.id}">Видалити</button>
+                    </form>
+                </td>
             </tr>
         </tbody>
     </table>
