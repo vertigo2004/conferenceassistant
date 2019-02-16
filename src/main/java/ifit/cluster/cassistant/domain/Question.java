@@ -47,7 +47,7 @@ public class Question {
     }
 
     public void setId(Long id) {
-        id = id;
+        this.id = id;
     }
 
     public void setEmail(String email) {

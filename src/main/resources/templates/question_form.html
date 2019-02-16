@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{question.add}">Додати питання</title>
+</head>
+<body>
+<h3 th:text="#{question.new}">Новe питання</h3>
+<form method="post" th:action="@{/question/save}" th:object="${question}">
+    <p th:text="#{question.field} + ':'">Заповніть поля</p>
+    <table>
+        <tbody>
+            <tr>
+                <td th:text="#{question.text}+':'"></td>
+                <td><input type="text" th:field="*{text}" required></td>
+            </tr>
+            <tr>
+                <td th:text="#{question.email}+':'"></td>
+                <td><input type="text" th:field="*{email}" required></td>
+            </tr>
+        </tbody>
+    </table>
+    <p><button type="submit" name="topicId" th:value="${topic.id}" th:text="#{question.save}">Зберегти</button></p>
+</form>
+</body>
+</html>

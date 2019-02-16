@@ -36,5 +36,8 @@
             </tbody>
         </table>
     </form>
+    <form method="post" th:action="@{/question/add}">
+        <p><button type="submit" name="topicId" th:value="${topic.id}" th:text="#{question.add}">Додати</button></p>
+    </form>
 </body>
 </html>

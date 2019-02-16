@@ -7,9 +7,10 @@
 <body>
     <h1 th:text="${conference.name}">Conference name</h1>
     <h3 th:text="${conference.info}">Conference info</h3>
-    <form method="post" th:action="@{/topic/like}">
+    <form id="like" method="post" th:action="@{/topic/like}">
         <input type="text" name="email">
         <input type="text" name="nickname">
+    </form>
         <table border="1">
             <caption th:text="#{topic.list}">ДОПОВІДІ КОНФЕРЕНЦІЇ</caption>
             <thead>
@@ -32,11 +33,13 @@
                     <td th:text="${topic.speaker}">Доповідач</td>
                     <td th:text="${topic.getRate()}">Рейтинг</td>
                     <td>
-                        <button type="submit" name="id" th:text="#{topic.like}" th:value="${topic.id}">Подобається</button>
+                        <button form="like" type="submit" name="id" th:text="#{topic.like}" th:value="${topic.id}">Подобається</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+    <form method="post" th:action="@{/topic/add}">
+        <p><button type="submit" name="conferenceId" th:value="${conference.id}" th:text="#{topic.add}">Додати</button></p>
     </form>
 </body>
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{conference.add}">Додати конференцію</title>
+</head>
+<body>
+<h3 th:text="#{conference.new}">Нова конференція</h3>
+<form method="post" th:action="@{/conference/save}" th:object="${conference}">
+    <p th:text="#{conference.field} + ':'">Заповніть поля</p>
+    <table>
+        <tbody>
+            <tr>
+                <td th:text="#{conference.name}+':'"></td>
+                <td><input type="text" th:field="*{name}" required></td>
+            </tr>
+            <tr>
+                <td th:text="#{conference.info}+':'"></td>
+                <td><input type="text" th:field="*{info}" required></td>
+            </tr>
+        </tbody>
+    </table>
+    <p><button type="submit" th:text="#{conference.save}">Зберегти</button></p>
+</form>
+</body>
+</html>

@@ -8,8 +8,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TopicService {
+
+    private final TopicRepo topicRepo;
+
     @Autowired
-    private TopicRepo topicRepo;
+    public TopicService(TopicRepo topicRepo) {
+        this.topicRepo = topicRepo;
+    }
 
     public Topic getById(Long id){
         return topicRepo.getById(id);
@@ -18,6 +23,10 @@ public class TopicService {
     public Topic likeTopic(Long id, User user){
         Topic topic = topicRepo.getById(id);
         topic.getLikes().add(user);
+        return topicRepo.save(topic);
+    }
+
+    public Topic saveTopic(Topic topic){
         return topicRepo.save(topic);
     }
 }

@@ -7,8 +7,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ConferenceService{
+
+    private final ConferenceRepo conferenceRepo;
+
     @Autowired
-    private ConferenceRepo conferenceRepo;
+    public ConferenceService(ConferenceRepo conferenceRepo) {
+        this.conferenceRepo = conferenceRepo;
+    }
 
     public Conference getById(Long id){
         return conferenceRepo.getById(id);
@@ -18,5 +23,8 @@ public class ConferenceService{
         return conferenceRepo.findAll();
     }
 
+    public Conference saveConference(Conference conference){
+        return conferenceRepo.save(conference);
+    }
 
 }

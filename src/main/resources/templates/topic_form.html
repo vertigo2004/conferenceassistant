@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{topic.add}">Додати доповідь</title>
+</head>
+<body>
+<h3 th:text="#{topic.new}">Нова доповідь</h3>
+<form method="post" th:action="@{/topic/save}" th:object="${topic}">
+    <p th:text="#{topic.field} + ':'">Заповніть поля</p>
+    <table>
+        <tbody>
+            <tr>
+                <td th:text="#{topic.name}+':'"></td>
+                <td><input type="text" th:field="*{name}" required></td>
+            </tr>
+            <tr>
+                <td th:text="#{topic.summary}+':'"></td>
+                <td><input type="text" th:field="*{summary}" required></td>
+            </tr>
+            <tr>
+                <td th:text="#{topic.speaker}+':'"></td>
+                <td><input type="text" th:field="*{speaker}" required></td>
+            </tr>
+            <tr>
+                <td th:text="#{topic.date}+':'"></td>
+                <td><input type="datetime-local" th:field="*{dateTime}" required></td>
+            </tr>
+        </tbody>
+    </table>
+    <p><button type="submit" name="conferenceId" th:value="${conference.id}" th:text="#{topic.save}">Зберегти</button></p>
+</form>
+</body>
+</html>

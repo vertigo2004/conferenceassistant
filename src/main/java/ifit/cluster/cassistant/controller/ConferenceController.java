@@ -6,12 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ConferenceController {
+
+    private final ConferenceService conferenceService;
+
     @Autowired
-    private ConferenceService conferenceService;
+    public ConferenceController(ConferenceService conferenceService) {
+        this.conferenceService = conferenceService;
+    }
+
+    @GetMapping("/conferences")
+    public String conferences(Model model) {
+        Iterable<Conference> conferences = conferenceService.getAll();
+        model.addAttribute("conferences", conferences);
+        return "conferences";
+    }
 
     @GetMapping("/conference/{id}")
     public String conference(@PathVariable Long id, Model model){
@@ -21,11 +35,16 @@ public class ConferenceController {
         return "conference";
     }
 
-    @GetMapping("/conferences")
-    public String conferences(Model model) {
-        Iterable<Conference> conferences = conferenceService.getAll();
-        model.addAttribute("conferences", conferences);
-        return "conferences";
+    @GetMapping("/conference/add")
+    public String addConference(Model model){
+        model.addAttribute("conference", new Conference());
+        return "conference_form";
+    }
+
+    @PostMapping("/conference/save")
+    public String saveConference(@ModelAttribute Conference conference){
+        conferenceService.saveConference(conference);
+        return "redirect:/conferences";
     }
 
 }

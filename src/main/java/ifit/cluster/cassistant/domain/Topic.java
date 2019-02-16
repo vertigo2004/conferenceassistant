@@ -1,6 +1,8 @@
 package ifit.cluster.cassistant.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -26,6 +28,8 @@ public class Topic {
     private String name;
     private String summary;
     private String speaker;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date dateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
