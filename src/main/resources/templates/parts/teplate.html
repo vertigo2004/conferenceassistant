@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="header">
+    <meta charset="utf-8"/>
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!--custom.css-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#locales").change(function () {
+                var selectedOption = $('#locales').val();
+                if (selectedOption != '') {
+                    window.location.replace('?lang=' + selectedOption);
+                }
+            });
+        });
+    </script>
+
+    <style type="text/css">
+        .center {
+            display: block;
+            margin: 0 auto;
+        }
+        .btn-gradient{
+            background: linear-gradient(to bottom, #183da8, #001674);
+        }
+        html, body {
+            height:100%;
+            margin:0;
+            padding:0;
+        }
+        .container-table {
+            display: table;
+            width: 100%;
+            height:100%;
+        }
+        .vertical-center-row {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+    </style>
+
+    <title th:text="${title}">Conference</title>
+</head>
+
+<div th:fragment="footer">
+    <div class="navbar-fixed-bottom row-fluid bg-light">
+        <div class="navbar-inner">
+            <div class="container">
+                made by Viktor Lyakhovych. IT-cluster academy, Java Advanced course, 2018-2019
+            </div>
+        </div>
+    </div>
+</div>

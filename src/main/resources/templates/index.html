@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
-
-<span th:insert="~{parts/header}"></span>
-
+<div th:replace="parts/teplate :: header"></div>
 <body>
+<!--<div class="container-fluid bg-secondary">-->
+<div class="container container-table">
+    <div class="row vertical-center-row align-self-center justify-content-center ">
+        <!--<div class="col-3"></div>-->
+        <!--<div class="col-6">-->
+            <div class="top-cover  mw-100 mh-100">
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="email" class="col-sm-6 control-label"></label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="e-mail">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="form-control btn btn-primary center btn-gradient" id="submit"
+                                style="width: 84px;">Вхід
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--<div class="col-3"></div>-->
 
-
-
+    </div>
+</div>
+<!--</div>-->
 </body>
-
+<!--<div th:replace="parts/teplate :: footer"></div>-->
 </html>
