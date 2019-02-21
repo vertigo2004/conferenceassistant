@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title th:text="#{question.add}">Додати питання</title>
 </head>
+<body>
+<div sec:authorize="!isAuthenticated()">
+    <a>Гість</a>
+</div>
+<div sec:authorize="isAuthenticated()">
+    <a sec:authentication="name"></a>
+</div>
 <nav>
     <a th:href="@{/index}" th:text="#{index.main}"></a> >
     <a th:href="@{/conferences}" th:text="#{conference.list}"></a> >
     <a th:href="@{/conference/{id}(id=${topic.conference.id})}" th:text="${topic.conference.name}"></a> >
     <a th:href="@{/topic/{id}(id=${topic.id})}" th:text="${topic.name}"></a>
 </nav>
-<body>
 <h3 th:text="#{question.new}">Новe питання</h3>
 <form method="post" th:action="@{/question/save}" th:object="${question}">
     <p th:text="#{question.field} + ':'">Заповніть поля</p>

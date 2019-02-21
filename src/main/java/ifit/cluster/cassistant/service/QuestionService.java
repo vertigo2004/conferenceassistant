@@ -6,6 +6,10 @@ import ifit.cluster.cassistant.repo.QuestionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 @Service
 public class QuestionService {
 
@@ -32,6 +36,20 @@ public class QuestionService {
 
     public void deleteQuestion(Long id){
         questionRepo.deleteById(id);
+    }
+
+    public List<Question> sortQuestion(List<Question> questions){
+        Collections.sort(questions, new Comparator<Question>() {
+            @Override
+            public int compare(Question o1, Question o2) {
+                int result = o1.getState().compareTo(o2.getState());
+                if (result == 0) {
+                    result = o2.getLikes().size() - o1.getLikes().size();
+                }
+                return result;
+            }
+        });
+        return questions;
     }
 
 }

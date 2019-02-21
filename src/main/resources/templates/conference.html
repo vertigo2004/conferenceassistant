@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title th:text="${conference.name}">Конференція</title>
 </head>
 <body>
+    <div sec:authorize="!isAuthenticated()">
+        <a>Гість</a>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <a sec:authentication="name"></a>
+    </div>
     <nav>
         <a th:href="@{/index}" th:text="#{index.main}"></a> >
         <a th:href="@{/conferences}" th:text="#{conference.list}"></a>
     </nav>
     <h1 th:text="${conference.name}">Conference name</h1>
     <h3 th:text="${conference.info}">Conference info</h3>
-    <form id="like" method="post" th:action="@{/topic/like}">
-        <input type="text" name="email">
-        <input type="text" name="nickname">
-    </form>
+    <div th:if="${#authorization.expression('!hasRole(''ROLE_MODER'')')}">
+        <form id="like" method="post" th:action="@{/topic/like}">
+            <input type="text" name="email">
+            <input type="text" name="nickname">
+        </form>
+    </div>
         <table border="1">
             <caption th:text="#{topic.list}">ДОПОВІДІ КОНФЕРЕНЦІЇ</caption>
             <thead>
@@ -24,8 +32,8 @@
                     <th th:text="#{topic.summary}">Короткий опис</th>
                     <th th:text="#{topic.speaker}">Доповідач</th>
                     <th th:text="#{topic.rate}">Рейтинг</th>
-                    <th th:text="#{topic.like}">Подобається</th>
-                    <th th:text="#{topic.delete}">Видалити</th>
+                    <th th:if="${#authorization.expression('!hasRole(''ROLE_MODER'')')}" th:text="#{topic.like}">Подобається</th>
+                    <th sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MODER')" th:text="#{topic.delete}">Видалити</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,19 +45,21 @@
                     <td th:text="${topic.summary}">Короткий опис</td>
                     <td th:text="${topic.speaker}">Доповідач</td>
                     <td th:text="${topic.getRate()}">Рейтинг</td>
-                    <td>
-                        <button form="like" type="submit" name="id" th:text="#{topic.like}" th:value="${topic.id}">Подобається</button>
+                    <td th:if="${#authorization.expression('!hasRole(''ROLE_MODER'')')}">
+                       <button form="like" type="submit" name="id" th:text="#{topic.like}" th:value="${topic.id}">Подобається</button>
                     </td>
-                    <td>
-                        <form method="post" th:action="@{/topic/delete}">
-                            <button type="submit" name="id" th:text="#{topic.delete}" th:value="${topic.id}">Видалити</button>
-                        </form>
+                    <td sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MODER')">
+                            <form method="post" th:action="@{/topic/delete}">
+                                <button type="submit" name="id" th:text="#{topic.delete}" th:value="${topic.id}">Видалити</button>
+                            </form>
                     </td>
                 </tr>
             </tbody>
         </table>
-    <form method="post" th:action="@{/topic/add}">
-        <p><button type="submit" name="conferenceId" th:value="${conference.id}" th:text="#{topic.add}">Додати</button></p>
-    </form>
+    <div sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MODER')">
+        <form method="post" th:action="@{/topic/add}">
+            <p><button type="submit" name="conferenceId" th:value="${conference.id}" th:text="#{topic.add}">Додати</button></p>
+        </form>
+    </div>
 </body>
 </html>

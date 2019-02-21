@@ -26,14 +26,14 @@
         <option value="ua" th:text="#{lang.ua}"></option>
     </select>
 
-    <p><a th:href="@{/conferences}" th:text="#{conference.list}">Конференції</a>
     <div sec:authorize="!isAuthenticated()">
         <a th:href="@{/login}" th:text="#{index.login}">Увійти</a>
     </div>
     <div sec:authorize="isAuthenticated()">
         <br><a th:text="#{index.logged}"></a>: <span sec:authentication="name"></span>
-        <br><a th:text="#{index.role}"></a>: <span sec:authentication="principal.authorities">Ролі</span>
         <br><a th:href="@{/logout}" th:text="#{index.logout}">Вийти</a>
     </div>
+
+    <p><a th:href="@{/conferences}" th:text="#{conference.list}">Конференції</a>
 </body>
 </html>

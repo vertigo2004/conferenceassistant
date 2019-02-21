@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.security.RolesAllowed;
+
 @Controller
 public class ConferenceController {
 
@@ -37,18 +39,21 @@ public class ConferenceController {
     }
 
     @GetMapping("/conference/add")
+    @RolesAllowed({"ROLE_MODER", "ROLE_ADMIN"})
     public String addConference(Model model){
         model.addAttribute("conference", new Conference());
         return "conference_form";
     }
 
     @PostMapping("/conference/save")
+    @RolesAllowed({"ROLE_MODER", "ROLE_ADMIN"})
     public String saveConference(@ModelAttribute Conference conference){
         conferenceService.saveConference(conference);
         return "redirect:/conferences";
     }
 
     @PostMapping("/conference/delete")
+    @RolesAllowed({"ROLE_MODER", "ROLE_ADMIN"})
     public String deleteConference(@RequestParam Long id){
         conferenceService.deleteConference(id);
         return "redirect:/conferences";

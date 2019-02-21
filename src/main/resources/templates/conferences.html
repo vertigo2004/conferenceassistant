@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <title th:text="#{conference.list}">Конференції</title>
 </head>
 <body>
+    <div sec:authorize="!isAuthenticated()">
+        <a>Гість</a>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <a sec:authentication="name"></a>
+    </div>
     <nav>
         <a th:href="@{/index}" th:text="#{index.main}"></a>
     </nav>
@@ -14,7 +20,7 @@
             <tr>
                 <th th:text="#{conference.name}">Назва конференції</th>
                 <th th:text="#{conference.info}">Загальна інформація</th>
-                <th th:text="#{conference.delete}">Видалити</th>
+                <th sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MODER')" th:text="#{conference.delete}">Видалити</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +29,7 @@
                     <a th:href="@{'/conference/' + ${conference.id}}"> <span th:text="${conference.name}"></span></a>
                 </td>
                 <td th:text="${conference.info}"></td>
-                <td>
+                <td sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MODER')">
                     <form method="post" th:action="@{/conference/delete}">
                         <button type="submit" name="id" th:text="#{conference.delete}" th:value="${conference.id}">Видалити</button>
                     </form>
@@ -31,8 +37,10 @@
             </tr>
         </tbody>
     </table>
-    <form method="get" th:action="@{/conference/add}">
-        <p><button type="submit" th:text="#{conference.add}">Додати</button></p>
-    </form>
+    <div sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MODER')">
+        <form method="get" th:action="@{/conference/add}">
+            <p><button type="submit" th:text="#{conference.add}">Додати</button></p>
+        </form>
+    </div>
 </body>
 </html>

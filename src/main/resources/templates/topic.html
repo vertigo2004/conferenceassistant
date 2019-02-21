@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script type="text/javascript">
+        function changeQuestionState(questionId, state) {
+            let token = $('#_csrf').attr('content');
+            let header = $('#_csrf_header').attr('content');
+            $.ajax({
+                type:'POST',
+                url:"/cqs",
+                dataType: "application/json",
+                data: JSON.stringify({
+                    "id": questionId,
+                    "state":state
+                }),
+                contentType: "application/json",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                }
+            });
+            setTimeout(function () {
+                window.location.reload(true)
+            }, 500);
+        };
+    </script>
     <title th:text="${topic.name}">Доповідь</title>
 </head>
 <body>
+    <div sec:authorize="!isAuthenticated()">
+        <a>Гість</a>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <a sec:authentication="name"></a>
+    </div>
     <nav>
         <a th:href="@{/index}" th:text="#{index.main}"></a> >
         <a th:href="@{/conferences}" th:text="#{conference.list}"></a> >
@@ -12,12 +43,14 @@
     </nav>
     <h2 th:text="${topic.name}">Topic name</h2>
     <h4 th:text="${topic.summary}">Topic summary</h4>
-    <p th:text="'Доповідач: ' + ${topic.speaker}">Topic speaker</p>
-    <p th:text="'Дата та час проведення: ' + ${#dates.format(topic.dateTime, 'dd.MM.yyyy HH:mm')}">Topic dateTime</p>
-    <form id="like" method="post" th:action="@{/question/like}">
-        <input type="text" name="email">
-        <input type="text" name="nickname">
-    </form>
+    <p th:text="#{topic.speaker} + ': ' + ${topic.speaker}">Topic speaker</p>
+    <p th:text="#{topic.date} + ': ' + ${#dates.format(topic.dateTime, 'dd.MM.yyyy HH:mm')}">Topic dateTime</p>
+    <div th:if="${#authorization.expression('!hasRole(''ROLE_MODER'')')}">
+        <form id="like" method="post" th:action="@{/question/like}">
+            <input type="text" name="email">
+            <input type="text" name="nickname">
+        </form>
+    </div>
         <table border="1">
             <caption th:text="#{question.list}">ПИТАННЯ ДО ДОПОВІДІ</caption>
             <thead>
@@ -26,20 +59,32 @@
                     <th th:text="#{question.email}">Пошта автора</th>
                     <th th:text="#{question.state}">Статус</th>
                     <th th:text="#{question.rate}">Рейтинг</th>
-                    <th th:text="#{question.like}">Подобається</th>
-                    <th th:text="#{question.delete}">Видалити</th>
+                    <th th:if="${#authorization.expression('!hasRole(''ROLE_MODER'')')}" th:text="#{question.like}">Подобається</th>
+                    <th sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MODER')" th:text="#{question.delete}">Видалити</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="question : ${questions}">
-                    <td th:text="${question.text}">Питання</td>
+                <tr th:each="question : ${questions}" th:switch="${question.state.name()}">
+                    <td th:case="'IN_PROGRESS'" bgcolor="yellow" th:text="${question.text}">Питання</td>
+                    <td th:case="'NEW'" bgcolor="#90ee90" th:text="${question.text}">Питання</td>
+                    <td th:case="'ANSWERED'" bgcolor="#d3d3d3" th:text="${question.text}">Питання</td>
+                    <td th:case="'REMOVED'" bgcolor="#ff7f50" th:text="${question.text}">Питання</td>
                     <td th:text="${question.email}">Пошта автора</td>
-                    <td th:text="${question.state}">Статус</td>
-                    <td th:text="${question.getRate()}">Рейтинг</td>
-                    <td>
+                    <td sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MODER')">
+                        <select th:onchange="|changeQuestionState(${question.id}, value)|">
+                            <option th:each="state:${states}"
+                                    th:value="${state}"
+                                    th:text="${state.name()}"
+                                    th:selected="${state == question.state}">
+                            </option>
+                        </select>
+                    </td>
+                    <td sec:authorize="!isAuthenticated()" th:text="${question.state}" ></td>
+                    <td th:text="${question.getRate()}"></td>
+                    <td th:if="${#authorization.expression('!hasRole(''ROLE_MODER'')')}">
                         <button form="like" type="submit" name="id" th:text="#{question.like}" th:value="${question.id}">Подобається</button>
                     </td>
-                    <td>
+                    <td sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MODER')">
                         <form method="post" th:action="@{/question/delete}">
                             <button type="submit" name="id" th:text="#{question.delete}" th:value="${question.id}">Видалити</button>
                         </form>

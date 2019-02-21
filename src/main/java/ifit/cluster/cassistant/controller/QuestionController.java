@@ -7,11 +7,16 @@ import ifit.cluster.cassistant.domain.User;
 import ifit.cluster.cassistant.service.QuestionService;
 import ifit.cluster.cassistant.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.security.RolesAllowed;
 
 @Controller
 public class QuestionController {
@@ -56,9 +61,19 @@ public class QuestionController {
     }
 
     @PostMapping("/question/delete")
+    @RolesAllowed({"ROLE_MODER", "ROLE_ADMIN"})
     public String deleteQuestion(@RequestParam Long id){
         Long topicId = questionService.getById(id).getTopic().getId();
         questionService.deleteQuestion(id);
         return "redirect:/topic/" + topicId;
+    }
+
+    @PostMapping(value = "/cqs",
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public void changeStatus(@RequestBody Question question){
+        Question oldQuestion = questionService.getById(question.getId());
+        oldQuestion.setState(question.getState());
+        questionService.saveQuestion(oldQuestion);
     }
 }
